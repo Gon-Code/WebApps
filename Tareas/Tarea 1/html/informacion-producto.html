@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Productos</title>
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+  <!-- Navegation menu -->
+  <ul>
+    <li><a href="agregar-producto.html">Agregar Producto</a></li>
+    <li><a href="ver-productos.html">Ver Producto</a></li>
+    <li><a href="agregar-pedido.html">Agregar Pedido</a></li>
+    <li><a href="ver-pedidos.html">Ver Pedido</a></li>
+  </ul>
+    <table>
+        <!-- Filas tr-->
+        <tr>
+          <th>Tipo</th>
+          <th>Producto(s)</th>
+          <th>Descripcion</th> 
+          <th>Región</th>
+          <th>Comuna</th>
+          <th>Nombre Productor</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Fotos</th>
+        </tr>
+        <tr>
+          <td>Fruta</td>
+          <td>Arándano, Frutilla, Frambuesa</td>
+          <td>Descripcion del producto</td>
+          <td>Ñuble</td>
+          <td>Coihueco</td>
+          <td>Juan Vazquez</td>
+          <td>jvazques14@gmail.com</td>
+          <td>56978423910</td>
+          <td><img src="../img/arandanos_2.jpg" onclick="showImage('../img/arandanos_3.jpg')"></td>
+        </tr>
+        <tr>
+          <td>Verdura</td>
+          <td>Coliflor, Brócoli</td>
+          <td>Descripcion del producto</td>
+          <td>Maule</td>
+          <td>Talca</td>>
+          <td>Hernan Larrain</td>
+          <td>larraindelosdearriba@hotmail.com</td>
+          <td>56961592749</td>
+          <td><img src="../img/brocoli-coliflor_2.jpg" onclick="showImage('../img/brocoli-coliflor_3.jpg')"></td>
+        </tr>
+        <tr>
+            <td>Fruta</td>
+            <td>Palta</td>
+            <td>Descripcion del producto</td>
+            <td>Los Ríos</td>
+            <td>Valdivia</td>
+            <td>Homero Simpson</td>
+            <td>mattgroening@gmail.com</td>
+            <td>56939851678</td>
+            <td><img src="../img/palta_2.jpg" onclick="showImage('../img/palta_3.jpg')"></td>
+        </tr>
+        <tr>
+            <td>Fruta</td>
+            <td>Papaya</td>
+            <td>Descripcion del producto</td>
+            <td>Coquimbo</td>
+            <td>La Serena</td>
+            <td>Ronaldo Nazario</td>
+            <td>elfenomeno@gmail.com</td>
+            <td>56974268136</td>
+            <td><img src="../img/papaya_2.jpg" onclick="showImage('../img/papaya_3.jpg')"></td>
+        </tr>
+        <tr>
+            <td>Fruta</td>
+            <td>Sandía, Melón</td>
+            <td>Descripcion del Producto</td>
+            <td>Maule</td>
+            <td>San Clemente</td>
+            <td>Lee Sang-Hyeok</td>
+            <td>bushonhide@gmail.com</td>
+            <td>56982649532</td>
+            <td><img src="../img/sandia_2.jpg" onclick="showImage('../img/sandia_3.jpg')">
+                <img src="../img/melon_2.jpg" onclick="showImage('../img/melon_3.jpg')">
+            </td>
+        </tr>
+      </table>
+
+      <!-- Div creado para mostrar el modal, esta oculto hasta que invocamos showImage() -->
+      <div id="modal" class="simple-modal" onclick="hideImage()">
+        <span class="close" onclick="hideImage()">&times;</span>
+        <img id="imagenModal">
+      </div>
+  
+      <script src="../js/info-producto.js"></script> 
+
+</body>
+</html>

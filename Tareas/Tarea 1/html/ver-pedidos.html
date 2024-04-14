@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Productos</title>
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+  <!-- Navegation menu -->
+  <ul>
+    <li><a href="agregar-producto.html">Agregar Producto</a></li>
+    <li><a href="ver-productos.html">Ver Producto</a></li>
+    <li><a href="agregar-pedido.html">Agregar Pedido</a></li>
+    <li><a href="ver-pedidos.html">Ver Pedido</a></li>
+  </ul>
+    <table>
+        <!-- Filas tr-->
+        <tr>
+          <th>Tipo</th>
+          <th>Producto(s)</th>
+          <th>Región</th>
+          <th>Comuna</th>
+          <th>Nombre Comprador</th>
+        </tr>
+        <tr onclick="redirect('informacion-pedido.html')">
+          <td>Fruta</td>
+          <td>Mora,Mandarina,Plátano</td>
+          <td>Ñuble</td>
+          <td>Chillán</td>
+          <td>Gon Freeccs</td>
+        </tr>
+        <tr onclick="redirect('informacion-pedido.html')">
+          <td>Verdura</td>
+          <td>Alcachofa,Ajo,Cebolla,Puerro,Acelga</td>
+          <td>Valparaíso</td>
+          <td>Concón</td>
+          <td>Leorio Paladiknight</td>
+        </tr>
+        <tr onclick="redirect('informacion-pedido.html')">
+            <td>Verdura</td>
+            <td>Tomate,Zanahoria,Berenjena</td>
+            <td>Atacama</td>
+            <td>Copiapó</td>
+            <td>Killua Zoldyck</td>
+        </tr>
+        <tr onclick="redirect('informacion-pedido.html')">
+            <td>Fruta</td>
+            <td>Kiwi,Maní,Avellana,Coco,Chirimoya</td>
+            <td>Coquimbo</td>
+            <td>Coquimbo</td>
+            <td>Kurapika</td>
+        </tr>
+        <tr onclick="redirect('informacion-pedido.html')">
+            <td>Fruta</td>
+            <td>Naranja,Limón,Grosella,Frambuesa</td>
+            <td>Antofagasta</td>
+            <td>Antofagasta</td>
+            <td>Hisoka Morow</td>
+        </tr>
+      </table>
+
+  <script src="../js/info-producto.js"> </script>
+</body>
+</html>

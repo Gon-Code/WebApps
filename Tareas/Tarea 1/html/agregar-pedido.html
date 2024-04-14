@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/modal.css">
+</head>
+
+<body>
+    <!-- Navegation menu -->
+    <ul>
+        <li><a href="agregar-producto.html">Agregar Producto</a></li>
+        <li><a href="ver-productos.html">Ver Producto</a></li>
+        <li><a href="agregar-pedido.html">Agregar Pedido</a></li>
+        <li><a href="ver-pedidos.html">Ver Pedido</a></li>
+    </ul>
+    <div class="form-container">
+    <!-- Elegir Fruta o Verdura--> 
+    <label>Tipo de Producto :<br></label>
+    <select id="tipo" onchange="showProducts()">
+        <option value="Fruta"> Fruta </option>
+        <option value="Verdura"> Verdura </option>
+    </select>
+    <!-- Elegir los productos que va a presentar --> 
+    <label> Producto : </label>
+    <select id="productos" multiple> 
+    </select>
+    <!-- Descripcion de los productos --> 
+    <label> Descripcion : <br></label>
+    <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea><br>
+
+    <!-- Seleccionar region : Esto esta incompleto-->
+    <label> Region : </label>
+    <select id="regiones" onchange="showComunas()" required>
+
+    </select>
+    <!-- Comunas : esto esta incompleto --> 
+    <label> Comunas : </label>
+    <select id="comunas" onchange="showComunas()" required> 
+
+    </select>  
+    <!-- Nombre Productor Caja de texto --> 
+    <form>
+        <label > Nombre Comprador : <br></label>
+        <input type="text" id="name" size="80">
+    </form>
+    <!-- Email Contacto --> 
+    <form>
+        <label > Email : <br></label>
+        <input type="text" id="email" size="30">
+    </form>
+    <!-- Numero Celular Productor --> 
+    <form>
+        <label > Teléfono : <br></label>
+        <input type="text"  id="phone" size="15">
+    </form>
+    <br><br>
+    <button type="button" id="button2">  Agregar Pedido (s)</button>
+    </div>
+
+    <!-- Modal para el mensaje de confirmacion -->
+    <div id="mymodal2" class="modal">
+        <div class="modal-content">
+          <p>¿Confirma el registro de este producto?</p>
+          <button id="confirmarBtn2">Sí, confirmo</button>
+          <button id="cancelarBtn2">No, quiero volver al formulario</button>
+        </div>
+    </div>
+
+    <script src="../js/producto.js"></script>
+    <script src="../js/comunas.js"></script>
+    <script src="../js/validador_pedido.js"></script>
+
+</body>
+</html>

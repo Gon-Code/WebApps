@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Productos</title>
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+  <!-- Navegation menu -->
+  <ul>
+    <li><a href="agregar-producto.html">Agregar Producto</a></li>
+    <li><a href="ver-productos.html">Ver Producto</a></li>
+    <li><a href="agregar-pedido.html">Agregar Pedido</a></li>
+    <li><a href="ver-pedidos.html">Ver Pedido</a></li>
+  </ul>
+  <table>
+        <!-- Filas tr-->
+        <tr>
+          <th>Tipo</th>
+          <th>Producto(s)</th>
+          <th>Región</th>
+          <th>Comuna</th>
+          <th>Fotos</th>
+        </tr>
+        <tr onclick="redirect('informacion-producto.html')">
+          <td>Fruta</td>
+          <td>Arándano,Frutilla,Frambuesa</td>
+          <td>Ñuble</td>
+          <td>Coihueco</td>
+          <td><img src="../img/arandanos_1.jpg" alt="Foto Arandanos"></td>
+        </tr>
+        <tr onclick="redirect('informacion-producto.html')">
+          <td>Verdura</td>
+          <td>Coliflor,Brócoli</td>
+          <td>Maule</td>
+          <td>Talca</td>>
+          <td><img src="../img/brocoli-coliflor_1.jpg"></td>
+        </tr>
+        <tr onclick="redirect('informacion-producto.html')">
+            <td>Fruta</td>
+            <td>Palta</td>
+            <td>Los Ríos</td>
+            <td>Valdivia</td>
+            <td><img src="../img/palta_1.jpg"></td>
+        </tr>
+        <tr onclick="redirect('informacion-producto.html')">
+            <td>Fruta</td>
+            <td>Papaya</td>
+            <td>Coquimbo</td>
+            <td>La Serena</td>
+            <td><img src="../img/papaya_1.jpg"></td>
+        </tr>
+        <tr onclick="redirect('informacion-producto.html')">
+            <td>Fruta</td>
+            <td>Sandía,Melón</td>
+            <td>Maule</td>
+            <td>San Clemente</td>
+            <td><img src="../img/sandia_1.jpg">
+                <img src="../img/melon_1.jpg">
+            </td>
+        </tr>
+      </table>
+
+  <script src="../js/info-producto.js"> </script>
+</body>
+</html>

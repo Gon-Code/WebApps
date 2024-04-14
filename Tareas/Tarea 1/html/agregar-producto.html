@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/modal.css">
+</head>
+
+<body>
+    <!-- Navegation menu -->
+    <ul>
+        <li><a href="agregar-producto.html">Agregar Producto</a></li>
+        <li><a href="ver-productos.html">Ver Producto</a></li>
+        <li><a href="agregar-pedido.html">Agregar Pedido</a></li>
+        <li><a href="ver-pedidos.html">Ver Pedido</a></li>
+    </ul>
+
+    <div class="form-container">
+    <!-- Elegir Fruta o Verdura OBLIGATORIO --> 
+    <label>Tipo de Producto :<br></label>
+    <select id="tipo" onchange="showProducts()" required>
+        <option value="Fruta"> Fruta </option>
+        <option value="Verdura"> Verdura </option>
+    </select>
+    <!-- Elegir los productos que va a presentar OBLIGATORIO--> 
+    <label> Producto : </label>
+    <select id="productos" multiple required> 
+    </select>
+    <!-- Descripcion de los productos OPCIONAL--> 
+    <label> Descripcion : <br></label>
+    <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea><br>
+    <!-- Subir archivos OBLIGATORIO --> 
+    <label> Imagen del Producto : <br></label>
+    <form>
+        <input type="file" id="file_1" name="myfile" required>
+        <input type="file" id="file_2" name="myfile">
+        <input type="file" id="file_3" name="myfile">
+    </form>
+    <!-- Seleccionar region OBLIGATORIO-->
+    <label> Region : </label>
+    <select id="regiones" onchange="showComunas()" required>
+
+    </select>
+    <!-- Comunas OBLIGATORIO --> 
+    <label> Comunas : </label>
+    <select id="comunas" onchange="showComunas()" required> 
+
+    </select>  
+    <!-- Nombre Productor OBLIGATORIO--> 
+    <form>
+        <label > Nombre Productor : <br></label>
+        <input type="text" id="name" size="80" required>
+    </form>
+    <!-- Email Contacto OBLIGATORIO --> 
+    <form>
+        <label > Email : <br></label>
+        <input type="text" id="email" size="30" required>
+    </form>
+    <!-- Numero Celular Productor OPCIONAL --> 
+    <form>
+        <label > Teléfono : <br></label>
+        <input type="text" id="phone" size="15">
+    </form>
+    <br><br>
+    <button type="button" id="button1">  Agregar Producto (s)</button>
+    </div>
+
+    <!-- Modal para el mensaje de confirmacion -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+          <p>¿Confirma el registro de este producto?</p>
+          <button id="confirmarBtn">Sí, confirmo</button>
+          <button id="cancelarBtn">No, quiero volver al formulario</button>
+        </div>
+    </div>
+
+    <script src="../js/producto.js"></script>
+    <script src="../js/comunas.js"></script>
+    <script src="../js/validador.js"></script>
+
+</body>
+</html>
