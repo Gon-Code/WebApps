@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -40,18 +40,18 @@
           <td>Juan Vazquez</td>
           <td>jvazques14@gmail.com</td>
           <td>56978423910</td>
-          <td><img src="../img/arandanos_2.jpg" onclick="showImage('../img/arandanos_3.jpg')"></td>
+          <td><img alt="Arandanos" src="../img/arandanos_2.jpg" onclick="showImage('../img/arandanos_3.jpg')"></td>
         </tr>
         <tr>
           <td>Verdura</td>
           <td>Coliflor, Brócoli</td>
           <td>Descripcion del producto</td>
           <td>Maule</td>
-          <td>Talca</td>>
+          <td>Talca</td>
           <td>Hernan Larrain</td>
           <td>larraindelosdearriba@hotmail.com</td>
           <td>56961592749</td>
-          <td><img src="../img/brocoli-coliflor_2.jpg" onclick="showImage('../img/brocoli-coliflor_3.jpg')"></td>
+          <td><img alt="brocoli-coliflor" src="../img/brocoli-coliflor_2.jpg" onclick="showImage('../img/brocoli-coliflor_3.jpg')"></td>
         </tr>
         <tr>
             <td>Fruta</td>
@@ -62,7 +62,7 @@
             <td>Homero Simpson</td>
             <td>mattgroening@gmail.com</td>
             <td>56939851678</td>
-            <td><img src="../img/palta_2.jpg" onclick="showImage('../img/palta_3.jpg')"></td>
+            <td><img alt="palta" src="../img/palta_2.jpg" onclick="showImage('../img/palta_3.jpg')"></td>
         </tr>
         <tr>
             <td>Fruta</td>
@@ -73,7 +73,7 @@
             <td>Ronaldo Nazario</td>
             <td>elfenomeno@gmail.com</td>
             <td>56974268136</td>
-            <td><img src="../img/papaya_2.jpg" onclick="showImage('../img/papaya_3.jpg')"></td>
+            <td><img alt="papaya" src="../img/papaya_2.jpg" onclick="showImage('../img/papaya_3.jpg')"></td>
         </tr>
         <tr>
             <td>Fruta</td>
@@ -84,8 +84,8 @@
             <td>Lee Sang-Hyeok</td>
             <td>bushonhide@gmail.com</td>
             <td>56982649532</td>
-            <td><img src="../img/sandia_2.jpg" onclick="showImage('../img/sandia_3.jpg')">
-                <img src="../img/melon_2.jpg" onclick="showImage('../img/melon_3.jpg')">
+            <td><img alt="sandia" src="../img/sandia_2.jpg" onclick="showImage('../img/sandia_3.jpg')">
+                <img alt="melon" src="../img/melon_2.jpg" onclick="showImage('../img/melon_3.jpg')">
             </td>
         </tr>
       </table>
@@ -93,7 +93,8 @@
       <!-- Div creado para mostrar el modal, esta oculto hasta que invocamos showImage() -->
       <div id="modal" class="simple-modal" onclick="hideImage()">
         <span class="close" onclick="hideImage()">&times;</span>
-        <img id="imagenModal">
+        <!-- Le agregue un src aunque jamas se vea para arreglar el error -->>
+        <img src="../img/shaq.gif" id="imagenModal" alt="imagenModal">
       </div>
   
       <script src="../js/info-producto.js"></script> 

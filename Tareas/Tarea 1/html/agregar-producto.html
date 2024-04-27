@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,13 +23,13 @@
     <div class="form-container">
     <!-- Elegir Fruta o Verdura OBLIGATORIO --> 
     <label>Tipo de Producto :<br></label>
-    <select id="tipo" onchange="showProducts()" required>
+    <select id="tipo" onchange="showProducts()" >
         <option value="Fruta"> Fruta </option>
         <option value="Verdura"> Verdura </option>
     </select>
     <!-- Elegir los productos que va a presentar OBLIGATORIO--> 
     <label> Producto : </label>
-    <select id="productos" multiple required> 
+    <select id="productos" multiple> 
     </select>
     <!-- Descripcion de los productos OPCIONAL--> 
     <label> Descripcion : <br></label>
@@ -43,12 +43,12 @@
     </form>
     <!-- Seleccionar region OBLIGATORIO-->
     <label> Region : </label>
-    <select id="regiones" onchange="showComunas()" required>
+    <select id="regiones" onchange="showComunas()" >
 
     </select>
     <!-- Comunas OBLIGATORIO --> 
     <label> Comunas : </label>
-    <select id="comunas" onchange="showComunas()" required> 
+    <select id="comunas" onchange="showComunas()" > 
 
     </select>  
     <!-- Nombre Productor OBLIGATORIO--> 
