@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+
+{% block title %}MI PRIMERA PAGINA WEB{% endblock %}
+
+{% block content %} 
+    <h1>MI PRIMERA PÁGINA WEB</h1>
+    <!-- GIF en la portada -->
+    <div id="gif-container">
+
+        <img src="{{ url_for('static', filename='img/shaq.gif') }}" alt="GIF de la portada">
+        <img src="{{ url_for('static', filename='img/siuuuuuu.gif') }}" alt="GIF de la portada1">
+        <img src="{{ url_for('static', filename='img/NICE_DANCING_NIGHT.gif') }}" alt="GIF de la portada2">
+    </div>
+{% endblock content %}
