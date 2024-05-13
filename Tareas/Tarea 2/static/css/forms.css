@@ -19,7 +19,8 @@ select {
     resize: none;
   }
 
-  /* Estilo para centrar los formularios */
+/* Estilo para centrar los formularios */
+
 .form-container {
     width: 50%; /* Ancho del formulario */
     margin: 0 auto; /* Margen automático en los lados para centrarlo horizontalmente */

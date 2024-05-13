@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Agregar Productos{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" href="{{url_for('static',filename='css/forms.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/modal.css')}}">
+
+{% endblock %}
+
+{% block content %}
+<form id="form_add_producto" action="add_producto" method="post">
+    <div class="form-container">
+    <!-- Elegir Fruta o Verdura OBLIGATORIO --> 
+    <label>Tipo de Producto :<br></label>
+    <select id="tipo" onchange="showProducts()" >
+        <option value="fruta"> fruta </option>
+        <option value="verdura"> verdura </option>
+    </select>
+    <!-- Elegir los productos que va a presentar OBLIGATORIO--> 
+    <label> Producto : </label>
+    <select id="productos" multiple> 
+    </select>
+    <!-- Descripcion de los productos OPCIONAL--> 
+    <label> Descripcion : <br></label>
+    <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea><br>
+    <!-- Subir archivos OBLIGATORIO --> 
+    <label> Imagen del Producto : <br></label>
+
+        <input type="file" id="file_1" name="myfile" required>
+        <input type="file" id="file_2" name="myfile">
+        <input type="file" id="file_3" name="myfile">
+
+    <!-- Seleccionar region OBLIGATORIO-->
+    <label><br> Region : </label>
+    <select id="region" onchange="changeComunas(region)">
+        {% for region in regiones %}
+            <option value="{{ region }}"> {{ region }} </option>
+        {% endfor %}
+    </select>
+    <!-- Comunas OBLIGATORIO --> 
+    <label> Comunas : </label>
+    <select id="comunas" > 
+        <!-- Esto se rellena con js -->
+        {% for comuna in comunas_por_region.values()|first %}
+        <option value="{{ comuna }}">{{ comuna }}</option>
+        {% endfor %}
+    </select>  
+    <!-- Nombre Productor OBLIGATORIO--> 
+    <form>
+        <label > Nombre Productor : <br></label>
+        <input type="text" id="name" size="80" required>
+    </form>
+    <!-- Email Contacto OBLIGATORIO --> 
+    <form>
+        <label > Email : <br></label>
+        <input type="text" id="email" size="30" required>
+    </form>
+    <!-- Numero Celular Productor OPCIONAL --> 
+    <form>
+        <label > Teléfono : <br></label>
+        <input type="text" id="phone" size="15" required>
+    </form>
+    <br><br>
+    <button type="submit" id="boton_add_producto">  Agregar Producto (s)</button>
+    </div>
+</form>
+    <!-- Modal para el mensaje de confirmacion -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+          <p>¿Confirma el registro de este producto?</p>
+          <button id="confirmarBtn">Sí, confirmo</button>
+          <button id="cancelarBtn">No, quiero volver al formulario</button>
+        </div>
+    </div>
+
+{% endblock content %}
+

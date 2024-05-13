@@ -3,6 +3,10 @@
 
 {% block title %}MI PRIMERA PAGINA WEB{% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
 {% block content %} 
     <h1>MI PRIMERA PÁGINA WEB</h1>
     <!-- GIF en la portada -->
