@@ -34,7 +34,7 @@
 
     <!-- Seleccionar region OBLIGATORIO-->
     <label><br> Region : </label>
-    <select id="region" onchange="changeComunas(region)">
+    <select id="region_selector">
         {% for region in regiones %}
             <option value="{{ region }}"> {{ region }} </option>
         {% endfor %}
@@ -42,10 +42,7 @@
     <!-- Comunas OBLIGATORIO --> 
     <label> Comunas : </label>
     <select id="comunas" > 
-        <!-- Esto se rellena con js -->
-        {% for comuna in comunas_por_region.values()|first %}
-        <option value="{{ comuna }}">{{ comuna }}</option>
-        {% endfor %}
+        <!-- Esto se rellena con jinja -->
     </select>  
     <!-- Nombre Productor OBLIGATORIO--> 
     <form>
@@ -77,3 +74,28 @@
 
 {% endblock content %}
 
+{% block javascript %}
+<script>
+    var comunasPorRegion = {{ comunas_por_region | tojson }};
+
+    var regionSelector = document.getElementById('region_selector');
+    var comunasSelect = document.getElementById('comunas');
+
+    regionSelector.addEventListener('change', function() {
+        var selectedRegion = regionSelector.value;
+        comunasSelect.innerHTML = '';
+
+        var comunas = comunasPorRegion[selectedRegion];
+
+        comunas.forEach(function(comuna) {
+            var option = document.createElement('option');
+            option.value = comuna;
+            option.textContent = comuna;
+            comunasSelect.appendChild(option);
+        });
+    });
+
+    regionSelector.dispatchEvent(new Event('change'));
+</script>
+
+{% endblock %}
