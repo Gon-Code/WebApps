@@ -10,17 +10,18 @@
 {% endblock %}
 
 {% block content %}
-<form id="form_add_producto" action="add_producto" method="post">
+<form id="form_add_producto" action="{{url_for('add_producto')}}" method="post" >
     <div class="form-container">
     <!-- Elegir Fruta o Verdura OBLIGATORIO --> 
-    <label>Tipo de Producto :<br></label>
-    <select id="tipo" onchange="showProducts()" >
+    <label>Tipo de Producto :<br></label required>
+    <select id="tipo" name="tipo">
         <option value="fruta"> fruta </option>
         <option value="verdura"> verdura </option>
     </select>
     <!-- Elegir los productos que va a presentar OBLIGATORIO--> 
     <label> Producto : </label>
-    <select id="productos" multiple> 
+    <select multiple id="producto_selector" name="producto_selector" required> 
+        <!-- Esto se rellena con el script de abajo -->
     </select>
     <!-- Descripcion de los productos OPCIONAL--> 
     <label> Descripcion : <br></label>
@@ -34,33 +35,27 @@
 
     <!-- Seleccionar region OBLIGATORIO-->
     <label><br> Region : </label>
-    <select id="region_selector">
+    <select id="region_selector" name="region_selector" required>
         {% for region in regiones %}
             <option value="{{ region }}"> {{ region }} </option>
         {% endfor %}
     </select>
     <!-- Comunas OBLIGATORIO --> 
     <label> Comunas : </label>
-    <select id="comunas" > 
-        <!-- Esto se rellena con jinja -->
+    <select id="comunas" name="comunas" required > 
+        <!-- Esto se rellena con el script de abajo -->
     </select>  
     <!-- Nombre Productor OBLIGATORIO--> 
-    <form>
         <label > Nombre Productor : <br></label>
-        <input type="text" id="name" size="80" required>
-    </form>
+        <input type="text" id="name" name="name" size="80" required>
     <!-- Email Contacto OBLIGATORIO --> 
-    <form>
         <label > Email : <br></label>
-        <input type="text" id="email" size="30" required>
-    </form>
+        <input type="text" id="email" name="email" size="30" required><br>
     <!-- Numero Celular Productor OPCIONAL --> 
-    <form>
         <label > Teléfono : <br></label>
-        <input type="text" id="phone" size="15" required>
-    </form>
+        <input type="text" id="phone" name="phone" size="15" required>
     <br><br>
-    <button type="submit" id="boton_add_producto">  Agregar Producto (s)</button>
+    <button type="submit" form="form_add_producto">  Agregar Producto (s)</button>
     </div>
 </form>
     <!-- Modal para el mensaje de confirmacion -->
@@ -75,20 +70,43 @@
 {% endblock content %}
 
 {% block javascript %}
-<script>
-    var comunasPorRegion = {{ comunas_por_region | tojson }};
 
-    var regionSelector = document.getElementById('region_selector');
-    var comunasSelect = document.getElementById('comunas');
+<script>
+    // Script para rellenar y actualizar los productos
+    var productosPorTipo = {{ productos | tojson }};
+    var tipoSelector = document.getElementById('tipo');
+    var productoSelector = document.getElementById('producto_selector');
+
+    tipoSelector.addEventListener('change', function() {
+        var selectedTipo = tipoSelector.value;
+        productoSelector.innerHTML = '';
+
+        var productos = productosPorTipo[selectedTipo];
+
+        productos.forEach(function(producto) {
+            var option = document.createElement('option');
+            option.value = producto;
+            option.textContent = producto;
+            productoSelector.appendChild(option);
+        });
+    });
+
+    tipoSelector.dispatchEvent(new Event('change'));
+    // Script para rellenar y actualizar las comunas
+
+    let comunasPorRegion = {{ comunas_por_region | tojson }};
+
+    let regionSelector = document.getElementById('region_selector');
+    let comunasSelect = document.getElementById('comunas');
 
     regionSelector.addEventListener('change', function() {
-        var selectedRegion = regionSelector.value;
+        let selectedRegion = regionSelector.value;
         comunasSelect.innerHTML = '';
 
-        var comunas = comunasPorRegion[selectedRegion];
+        let comunas = comunasPorRegion[selectedRegion];
 
         comunas.forEach(function(comuna) {
-            var option = document.createElement('option');
+            let option = document.createElement('option');
             option.value = comuna;
             option.textContent = comuna;
             comunasSelect.appendChild(option);
@@ -96,6 +114,7 @@
     });
 
     regionSelector.dispatchEvent(new Event('change'));
+    
 </script>
 
 {% endblock %}

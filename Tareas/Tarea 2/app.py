@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 import pymysql 
 from utils.getters import *
 
@@ -41,10 +41,38 @@ def agregar_producto():
 '''
 @app.route('/agregar-producto')
 def agregar_producto():
+    # Obtenemos los productos
+    productos = get_producto()
+
+    # Obtenemos regiones y comunas
     regiones = get_regiones()
     comunas_por_region = {region:get_comunas(region) for region in regiones}
-    return render_template('agregar-producto.html',regiones=regiones,comunas_por_region=comunas_por_region)
+    return render_template('agregar-producto.html',productos=productos,regiones=regiones,comunas_por_region=comunas_por_region)
 
+
+# Esta funcion agrega los productos a la base de datos
+@app.route('/enviando-producto',methods=['POST','GET'])
+def add_producto():
+
+    # Obtenemos los datos ingresados por el usuario 
+    tipo = request.form['tipo']
+    productos = request.form.getlist('producto_selector')
+    descripcion = request.form['descripcion']
+    # Falta la imagen
+    region = request.form['region_selector']
+    comuna = request.form['comunas']
+    email = request.form['email']
+    telefono = request.form['phone']
+
+    print(tipo)
+    print(productos)
+    print(descripcion)
+    print(region)
+    print(comuna)
+    print(email)
+    print(telefono)
+    
+    return "hola mundo , fin del envio del formulario "
 
 if __name__ == '__main__' :
     app.run(debug=True)
