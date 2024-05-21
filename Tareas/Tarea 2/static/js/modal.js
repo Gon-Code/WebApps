@@ -1,12 +1,12 @@
 // Obtén el modal
-var modal = document.getElementById("myModal");
+let modal = document.getElementById("myModal");
 
 // Obtén los botones de confirmar y cancelar
-var confirmarBtn = document.getElementById("confirmarBtn");
-var cancelarBtn = document.getElementById("cancelarBtn");
+let confirmarBtn = document.getElementById("confirmarBtn");
+let cancelarBtn = document.getElementById("cancelarBtn");
 
 // Obtén el mensaje del modal
-var modalMessage = document.getElementById("modalMessage");
+let modalMessage = document.getElementById("modalMessage");
 
 // Cuando el usuario hace clic en el botón de confirmar, envía el formulario
 confirmarBtn.onclick = function() {

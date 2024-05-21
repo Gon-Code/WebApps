@@ -1,4 +1,7 @@
+# Carpeta ignoradas
+
 .vscode/
+__pycache__/
 
 # Compiled source #
 ###################
