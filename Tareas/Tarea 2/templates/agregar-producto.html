@@ -47,7 +47,7 @@
     </select>  
     <!-- Nombre Productor OBLIGATORIO--> 
         <label > Nombre Productor : <br></label>
-        <input type="text" id="name" name="name" size="80" required>
+        <input type="text" id="name" name="name" size="80" required><br>
     <!-- Email Contacto OBLIGATORIO --> 
         <label > Email : <br></label>
         <input type="text" id="email" name="email" size="30" required><br>
@@ -58,33 +58,78 @@
     <button type="submit" form="form_add_producto">  Agregar Producto (s)</button>
     </div>
 </form>
-    <!-- Modal para el mensaje de confirmacion -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-          <p>¿Confirma el registro de este producto?</p>
-          <button id="confirmarBtn">Sí, confirmo</button>
-          <button id="cancelarBtn">No, quiero volver al formulario</button>
+<!-- Modal de error -->
+<div id="errorModal" class="modal" style="display: {% if error_message or confirm_message %}block{% else %}none{% endif %}">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        
+        <p>{% if confirm_message %}
+            {{ confirm_message }}
+        {% elif error_message %}
+            {{ error_message }}
+        {% endif %}</p>
+        <div>
+            <!-- Botón para volver al formulario -->
+            <button id="volverBtn">Volver al formulario</button>
+            <!-- Botón para confirmar el envío -->
+            <button id="confirmarBtn">Confirmar</button>
         </div>
     </div>
-
+</div>
 {% endblock content %}
 
 {% block javascript %}
+<!-- Tu bloque de scripts JavaScript -->
 
 <script>
+    // Obtener referencia al botón de volver al formulario y al botón de confirmar
+    var volverBtn = document.getElementById('volverBtn');
+    var confirmarBtn = document.getElementById('confirmarBtn');
+
+    // Agregar evento de clic al botón de volver al formulario
+    volverBtn.addEventListener('click', function() {
+        // Cerrar el modal al hacer clic en volver
+        var errorModal = document.getElementById('errorModal');
+        errorModal.style.display = "none";
+    });
+
+    // Agregar evento de clic al botón de confirmar
+    confirmarBtn.addEventListener('click', function() {
+        // Aquí puedes agregar la lógica para confirmar el envío del formulario
+        // Por ejemplo, puedes enviar el formulario nuevamente con JavaScript
+        // O redirigir al usuario a otra página
+        alert("Formulario confirmado");
+    });
+
+    // Cerrar modal haciendo clic en el botón "X"
+    var closeBtn = document.getElementsByClassName("close")[0];
+    closeBtn.onclick = function() {
+        var errorModal = document.getElementById('errorModal');
+        errorModal.style.display = "none";
+    };
+
+    // Cerrar modal haciendo clic fuera del modal
+    window.onclick = function(event) {
+        var errorModal = document.getElementById('errorModal');
+        if (event.target == errorModal) {
+            errorModal.style.display = "none";
+        }
+    };
+</script>
+<script>
     // Script para rellenar y actualizar los productos
-    var productosPorTipo = {{ productos | tojson }};
-    var tipoSelector = document.getElementById('tipo');
-    var productoSelector = document.getElementById('producto_selector');
+    let productosPorTipo = {{ productos | tojson }};
+    let tipoSelector = document.getElementById('tipo');
+    let productoSelector = document.getElementById('producto_selector');
 
     tipoSelector.addEventListener('change', function() {
-        var selectedTipo = tipoSelector.value;
+        let selectedTipo = tipoSelector.value;
         productoSelector.innerHTML = '';
 
-        var productos = productosPorTipo[selectedTipo];
+        let productos = productosPorTipo[selectedTipo];
 
         productos.forEach(function(producto) {
-            var option = document.createElement('option');
+            let option = document.createElement('option');
             option.value = producto;
             option.textContent = producto;
             productoSelector.appendChild(option);
@@ -116,5 +161,7 @@
     regionSelector.dispatchEvent(new Event('change'));
     
 </script>
+<!-- 
+<script src="{{ url_for('static',filename='js/modal.js')}}"></script> -->
 
 {% endblock %}
