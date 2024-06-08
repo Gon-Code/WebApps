@@ -29,9 +29,9 @@ class TestvalidationFunctions(unittest.TestCase):
     # Test validate Phone function
     def test_validatePhone(self):
         error = ""
-        self.assertTrue(validate_phoneNumer("988888888",error)[0])
-        self.assertFalse(validate_phoneNumer("1",error)[0])
-        self.assertFalse(validate_phoneNumer("123456789",error)[0])
+        self.assertTrue(validate_phone_number("988888888",error)[0])
+        self.assertFalse(validate_phone_number("1",error)[0])
+        self.assertFalse(validate_phone_number("123456789",error)[0])
 
 
         

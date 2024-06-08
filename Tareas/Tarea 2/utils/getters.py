@@ -62,4 +62,24 @@ def get_comunas(region):
     return lista_comunas
 
 
+# get_comuna_id Entrega el id (llave) de la comuna ingresada
+def get_comuna_id(comuna):
+    
+    # Query
+    sql = "SELECT id FROM comuna WHERE nombre = %s"
+    # Obtenemos una 1-tupla 
+    c.execute(sql,(comuna,))
+    id = c.fetchone()
+    
+    return id[0]
+
+# get_fruta_verdura_id Entrega el id (llave)
+def get_fruta_verdura_id(name):
+    
+    # Query
+    sql = "SELECT id FROM tipo_verdura_fruta WHERE nombre = %s"
+    c.execute(sql,(name,))
+    id = c.fetchone()
+    
+    return id[0]
 
