@@ -8,11 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if productos_seleccionados %}
-        {% for producto in productos_seleccionados %}
-            <p>{% if producto in productos_seleccionados %}selected{% endif %} - - -- {{ producto }}</p> 
-        {% endfor %}
-    {% endif %}
+
 <form id="form_add_producto" action="{{ url_for('agregar_producto') }}" method="post" enctype="multipart/form-data">
     <div class="form-container">
         <!-- Elegir Fruta o Verdura OBLIGATORIO -->
@@ -33,7 +29,7 @@
         <textarea id="descripcion" name="descripcion" rows="4" cols="50">{{ request.form.get('descripcion', '') }}</textarea><br>
         <!-- Subir archivos OBLIGATORIO -->
         <label>Imagen del Producto : <br></label>
-        <input type="file" id="file_1" name="myfile" required>
+        <input type="file" id="file_1" name="myfile1" required>
         <input type="file" id="file_2" name="myfile2">
         <input type="file" id="file_3" name="myfile3">
         <!-- Seleccionar región OBLIGATORIO -->

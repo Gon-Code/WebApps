@@ -4,7 +4,7 @@ import pymysql
 import os
 import ast
 from utils.getters import get_producto, get_regiones, get_comunas, get_comuna_id, get_fruta_verdura_id
-from utils.validation import validate
+from utils.validation import validate, validate_conf_img
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Añade una clave secreta para las sesiones de Flask
@@ -49,15 +49,21 @@ def agregar_producto():
         fotos = []
         for i in range(1, 4):
             file = request.files.get(f'myfile{i}')
+            print(type(file))
+            print(file)
             if file and file.filename != '':
                 # Lee el archivo en binario
                 file_data = file.read()
                 fotos.append(file_data)
             else:
                 fotos.append(None)
-                
+        
+        #for foto in fotos :
+        #    result = validate_conf_img(foto)
+        #    print(result)
+            
         # Datos para validar
-        input_data = (name, productos_seleccionados, telefono, email)
+        input_data = (name, productos_seleccionados,fotos, telefono, email)
         validation_result = validate(input_data)
 
         # Retorna True si son validos

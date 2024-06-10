@@ -1,4 +1,5 @@
 import re
+import filetype
 
 # Funciones validadoras del input
 
@@ -36,13 +37,40 @@ def validate_email(value, error):
         error += "El email ingresado no es válido\n"
     return isValid, error
 
+def validate_conf_img(conf_img,error):
+    error = ''
+    ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
+    ALLOWED_MIMETYPES = {"image/jpeg", "image/png", "image/gif"}
+
+    # check if a file was submitted
+    if conf_img is None:
+        return False,error
+
+    # check file extension
+    ftype_guess = filetype.guess(conf_img)
+    if ftype_guess.extension not in ALLOWED_EXTENSIONS:
+        error += "Tipo de archivo no valido\n"
+        return False,error
+    # check mimetype
+    if ftype_guess.mime not in ALLOWED_MIMETYPES:
+        error += "Tipo de archivo no valido\n"
+        return False,error
+    
+    return True,error
 
 def validate(input):
-    username, productos, phone, email = input
+    username, productos, fotos, phone, email = input
     error = ""
 
     isUsernameValid, error = validate_username(username, error)
     isProductoValid, error = validate_producto(productos, error)
+    isFileValid = True
+    for foto in fotos:
+        isFileValid, error = validate_conf_img(foto,error)
+        print(isFileValid)
+        if isFileValid == False :
+            break
+
     isPhoneValid, error = validate_phone_number(phone, error)
     isEmailValid, error = validate_email(email, error)
 
