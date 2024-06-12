@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Informacion Producto {{ producto_id }}{% endblock %}
+
+{% block content %} 
+
+<body>
+  <table>
+        <!-- Filas tr-->
+        <tr>
+          <th>Tipo</th>
+          <th>Producto(s)</th>
+          <th>Descripción</th>  
+          <th>Región</th>
+          <th>Comuna</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Fotos</th>
+        </tr>
+        <tr>
+          <td> {{ producto[1] }} </td>
+          <td> {{ ', '.join(lista_productos) }}</td>
+          <td> {{ producto[2]}}</td>
+          <td> {{ comuna }}</td>
+          <td> {{ region }}</td>
+          <td> {{producto[4]}} </td>
+          <td> {{producto[5]}} </td>
+          <td> {{producto[6]}} </td>
+          <td> <img src="{{ url_for('static', filename= path ) }}" alt="Foto del producto"></td>
+        </tr>
+      </table>
+
+</body>
+
+{% endblock content %}
+
+<script>
+    function redirigir(productoId) {
+        window.location.href = "/detalle_producto/" + productoId;
+    }
+</script>

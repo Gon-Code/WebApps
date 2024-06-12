@@ -1,5 +1,5 @@
 import pymysql
-
+from PIL import Image
 
 # En este archivo creamos algunas funciones para obtener los productos y las comunas
 # Conexion a base de datos
@@ -83,3 +83,47 @@ def get_fruta_verdura_id(name):
     
     return id[0]
 
+# Recibe 2 parametros : x y , estos delimitan un rango
+# Entrega una lista con productos, desde el x hasta y 
+def get_last_products(inf,sup):
+    # Query
+    sql = "SELECT id, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto ORDER BY id DESC LIMIT %s, %s"
+    c.execute(sql,(inf,sup,))
+    list = c.fetchall()
+    
+    return list
+
+# Recibe una id (la de la tabla producto)
+# Entrega una lista con las frutas o verduras, asociadas a esa id
+def get_productos(id):
+    # Query 
+    sql = "SELECT TVF.nombre FROM tipo_verdura_fruta TVF, producto_verdura_fruta PVF WHERE TVF.id=PVF.tipo_verdura_fruta_id AND PVF.producto_id=%s "
+    c.execute(sql,(id,))
+    list = c.fetchall()
+    new_list = []
+    for x in list : 
+        new_list.append(x[0])
+
+    return new_list
+
+# Recibe el id de una comuna
+# Entrega el nombre de una comuna y su region correspondiente
+def get_comuna_region(id_comuna):
+    # Query 
+    sql = "SELECT COM.nombre, REG.nombre FROM comuna COM, region REG  WHERE COM.region_id=REG.id AND COM.id=%s"
+    c.execute(sql,(id_comuna,))
+    list = c.fetchall()[0]
+    comuna = list[0]
+    region = list[1]
+    
+    return comuna,region
+
+# Recibe un parametro, el id el producto
+# Entrega una lista con las rutas de las imagenes
+# enlazadas a un producto
+def get_files(id):
+    sql = "SELECT nombre_archivo FROM foto WHERE producto_id=%s"
+    c.execute(sql,(id,))
+    list = c.fetchall()[0]
+
+    return list

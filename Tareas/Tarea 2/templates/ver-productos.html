@@ -4,6 +4,11 @@
 
 {% block content %} 
 
+<script>
+  function redirigir(productoId) {
+      window.location.href = "/detalle_producto/" + productoId;
+  }
+</script>
 <body>
   <table>
         <!-- Filas tr-->
@@ -14,45 +19,42 @@
           <th>Comuna</th>
           <th>Fotos</th>
         </tr>
-        <tr onclick="redirect('informacion-producto.html')">
-          <td>Fruta</td>
-          <td>Arándano,Frutilla,Frambuesa</td>
-          <td>Ñuble</td>
-          <td>Coihueco</td>
-          <td><img src="../img/arandanos_1.jpg" alt="Foto Arandanos"></td>
+        <tr onclick="redirigir({{ productos[0][0] }})">
+          <td> {{ productos[0][1] }} </td>
+          <td> {{ ', '.join(lista_productos[0]) }}</td>
+          <td> {{ regiones[0] }}</td>
+          <td> {{ comunas[0]}}</td>
+          <td><img src="{{ url_for('static', filename= small[0] ) }}" alt="Foto Arandanos"></td>
         </tr>
-        <tr onclick="redirect('informacion-producto.html')">
-          <td>Verdura</td>
-          <td>Coliflor,Brócoli</td>
-          <td>Maule</td>
-          <td>Talca</td>
-          <td><img src="../img/brocoli-coliflor_1.jpg" alt="foto brocoli"></td>
+        <tr onclick="redirigir({{ productos[1][0] }})">
+          <td> {{ productos[1][1] }} </td>
+          <td> {{ ', '.join(lista_productos[1]) }}</td>
+          <td> {{ regiones[1]}}</td>
+          <td> {{ comunas[1] }}</td>
+          <td><img src="{{ url_for('static', filename= small[1] ) }}" alt="Foto Arandanos"></td>
         </tr>
-        <tr onclick="redirect('informacion-producto.html')">
-            <td>Fruta</td>
-            <td>Palta</td>
-            <td>Los Ríos</td>
-            <td>Valdivia</td>
-            <td><img src="../img/palta_1.jpg" alt="foto palta"></td>
+        <tr onclick="redirigir({{ productos[2][0] }})">
+          <td> {{ productos[2][1] }} </td>
+          <td> {{ ', '.join(lista_productos[2])}}</td>
+          <td> {{ regiones[2]}}</td>
+          <td> {{ comunas[2]}}</td>
+          <td><img src="{{ url_for('static', filename= small[2] ) }}" alt="foto brocoli"></td>
         </tr>
-        <tr onclick="redirect('informacion-producto.html')">
-            <td>Fruta</td>
-            <td>Papaya</td>
-            <td>Coquimbo</td>
-            <td>La Serena</td>
-            <td><img src="../img/papaya_1.jpg" alt="foto papaya"></td>
+        <tr onclick="redirigir({{ productos[3][0] }})">
+            <td> {{ productos[3][1] }} </td>
+            <td> {{ ', '.join(lista_productos[3])}}</td>
+            <td> {{ regiones[3]}}</td>
+            <td> {{ comunas[3]}}</td>
+            <td><img src="{{ url_for('static', filename= small[3] ) }}" alt="foto palta"></td>
         </tr>
-        <tr onclick="redirect('informacion-producto.html')">
-            <td>Fruta</td>
-            <td>Sandía,Melón</td>
-            <td>Maule</td>
-            <td>San Clemente</td>
-            <td><img src="../img/sandia_1.jpg" alt="foto sandia">
-                <img src="../img/melon_1.jpg" alt="foto melon">
-            </td>
+        <tr onclick="redirigir({{ productos[4][0] }})">
+            <td> {{ productos[4][1] }} </td>
+            <td> {{ ', '.join(lista_productos[4]) }}</td>
+            <td> {{ regiones[4] }}</td>
+            <td> {{ comunas[4]}}</td>
+            <td><img src="{{ url_for('static', filename= small[4] ) }}" alt="foto papaya"></td>
         </tr>
       </table>
 
-  <script src="../js/info-producto.js"> </script>
 </body>
 {% endblock content %}

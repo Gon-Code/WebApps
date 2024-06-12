@@ -43,4 +43,26 @@ def save_uploads(files):
     # Y borra lo archivos en la carpeta auxiliar
     
     # Envia los datos a la base de datos 
+
+
+# Guarda las imagenes en los 3 tamanos distintos
+# recibe la imagen y su nombre
+def resize(file,filename):
+    # Construir la ruta absoluta al directorio de destino
+    target_dir_small = os.path.abspath(os.path.join(current_dir, '..', 'static', 'small'))  # Ruta al directorio /static/small 
+    target_dir_medium = os.path.abspath(os.path.join(current_dir, '..', 'static', 'medium'))  # Ruta al directorio /static/medium 
+    target_dir_large = os.path.abspath(os.path.join(current_dir, '..', 'static', 'large'))  # Ruta al directorio /static/large
     
+    path_small = os.path.join(target_dir_small,filename)
+    path_medium = os.path.join(target_dir_medium,filename)
+    path_large = os.path.join(target_dir_large,filename)
+    
+    file_small = file.resize((120,120))
+    file_medium = file.resize((640,480))
+    file_large = file.resize((1280,1024))
+    
+    file_small.save(path_small)
+    file_medium.save(path_medium)
+    file_large.save(path_large)    
+    
+    return 

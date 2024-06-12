@@ -90,15 +90,15 @@
     <div class="modal-content">
         <p>Hemos recibido el registro de producto. Muchas Gracias</p>
         <form action="{{ url_for('submittingform') }}"  enctype="multipart/form-data" method="POST">
-            <input name="tipo" value="{{ request.form.get('tipo') }}">
-            <input name="producto_selector" value= "{{ productos_seleccionados }}" >
-            <input name="descripcion" value="{{ request.form.get('descripcion', '') }}">
-            <input name="region_selector" value="{{ request.form.get('region_selector') }}">
-            <input name="comunas" value="{{ request.form.get('comunas') }}">
-            <input name="uploads" value="{{ uploads }}"></input>
-            <input name="name" value="{{ request.form.get('name', '') }}">
-            <input name="email" value="{{ request.form.get('email', '') }}">
-            <input name="phone" value="{{ request.form.get('phone', '') }}">
+            <input name="tipo" value="{{ request.form.get('tipo') }}" hidden>
+            <input name="producto_selector" value= "{{ productos_seleccionados }}" hidden>
+            <input name="descripcion" value="{{ request.form.get('descripcion', '') }}" hidden>
+            <input name="region_selector" value="{{ request.form.get('region_selector') }}" hidden>
+            <input name="comunas" value="{{ request.form.get('comunas') }}" hidden>
+            <input name="uploads" value="{{ uploads }}" hidden></input>
+            <input name="name" value="{{ request.form.get('name', '') }}" hidden>
+            <input name="email" value="{{ request.form.get('email', '') }}" hidden>
+            <input name="phone" value="{{ request.form.get('phone', '') }}" hidden>
             <button type="submit">Volver a la página inicial</button>
         </form>
     </div>

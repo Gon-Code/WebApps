@@ -4,10 +4,11 @@ import os
 import ast
 import hashlib
 import shutil
+from PIL import Image
 from werkzeug.utils import secure_filename
-from utils.getters import get_producto, get_regiones, get_comunas, get_comuna_id, get_fruta_verdura_id
+from utils.getters import *
 from utils.validation import validate, validate_conf_img
-from utils.save_upload import save_uploads
+from utils.save_upload import *
 
 current_dir = os.path.dirname(os.path.abspath(__file__))  # Directorio del script Python actual
 source_dir = os.path.abspath(os.path.join(current_dir, 'static', 'preupload')) # Directorio de preuploads
@@ -41,9 +42,6 @@ def request_entity_too_large(error):
 def index():
     return render_template('index.html')
 
-@app.route('/ver-productos')
-def ver_productos():
-    return render_template('ver-productos.html')
 
 @app.route('/agregar-producto', methods=['GET', 'POST'])
 def agregar_producto():
@@ -119,7 +117,6 @@ def submittingform():
 
     #Primero obtenemos los datos del formulario
     form = request.form
-    
     tipo = form['tipo']
     productos = ast.literal_eval(form['producto_selector']) # Viene como str asi que lo formateamos a una lista
     uploads = ast.literal_eval(form['uploads']) # Viene como str asi que lo formateamos a una lista
@@ -177,17 +174,22 @@ def submittingform():
     
     for file in uploads:
         print(file)
+        # Si se enviaron menos de 3 archivos alguno sea nulo
+        if file is None:
+            continue
         # Ruta de la imagen + nombre del archivo
         source_file_path = os.path.join(source_dir,file)
         # Ruta de de destino de la imagen + nombre del archivo
         destination_file_path = os.path.join(destination_dir, file)
-        
         # Chequeamos si existe el archivo con el nombre de la lista
         if os.path.exists(source_file_path):
             # Mueve el archivo
             shutil.move(source_file_path,destination_file_path)
 
         # Añadimos a la base de datos
+        imagen = Image.open(destination_file_path)
+        resize(imagen,file)
+        print(imagen)
         sql_foto = "INSERT INTO foto (ruta_archivo, nombre_archivo, producto_id) VALUES (%s,%s,%s)"
         path = os.path.join(app.config['UPLOAD_FOLDER'],file)
         c.execute(sql_foto,(path,file,producto_id))
@@ -201,20 +203,64 @@ def submittingform():
         # Si existe el archivo, lo elimina
         os.remove(file_path)
         
-
-
-    
-    
-    
-    '''
-        # Añadimos a la base de datos
-        sql_foto = "INSERT INTO foto (ruta_archivo, nombre_archivo, producto_id) VALUES (%s,%s,%s)"
-        c.execute(sql_foto,(app.config['UPLOAD_FOLDER'],img_filename,producto_id))
-        conn.commit()
-        print(result)   
-    '''
-    
     return render_template('index.html')     
-            
+
+
+@app.route('/ver-productos')
+def ver_productos():
+    # Cada vez que se llama a esta funcion tenemos que pedir 5 productos para mostrar en pantalla
+    productos = get_last_products(0,5) # Esta es una tupla con las 5 ultimas filas de la tabla producto
+    lista_productos = []
+    comunas = []
+    regiones = []
+    uploads = []
+    # File routes
+    small = []
+    medium = []
+    large = []
+    
+    # Iteramos sobre los 5 productos (envios de productores)
+    for x in productos :
+        # el [0] entrega el id, asi que iteraremos por ellos
+        # es una lista con listas de productos
+        list = get_productos(x[0])
+        lista_productos.append(list)
+        
+        # Obtenemos la comuna y la region
+        comuna,region = get_comuna_region(x[3])
+        comunas.append(comuna)
+        regiones.append(region)
+        print(x[0])
+        # Obtenemos las rutas a las imagenes de cada envio de productor
+        route = get_files(x[0])[0]
+        uploads.append(route)
+        small.append('small/'+route)
+        medium.append('medium/'+route)
+        large.append('large/'+route)
+
+    return render_template('ver-productos.html',productos=productos,lista_productos=lista_productos,comunas=comunas,regiones=regiones,uploads=uploads,
+                           small=small,medium=medium,large=large)
+
+    
+@app.route('/detalle_producto/<int:producto_id>')
+def detalle_producto(producto_id):
+    
+    # Obtener datos del producto
+    sql = "SELECT %s, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto"
+    c.execute(sql,(producto_id,))
+    producto = c.fetchone()
+    print(producto)
+    
+    lista_productos = get_productos(producto_id)
+    print(lista_productos)
+    print(producto[3])
+    comuna, region = get_comuna_region(producto[3])
+    
+    # Obtenemos su foto
+    filename = get_files(producto_id)[0]
+    path = 'medium/'+filename
+    return render_template('informacion-producto.html', producto_id=producto_id,producto=producto,lista_productos=lista_productos,comuna=comuna,region=region,path=path)
+
+     
 if __name__ == '__main__':
     app.run(debug=True)
