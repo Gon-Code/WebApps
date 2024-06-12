@@ -51,6 +51,7 @@ def validate_conf_img(conf_img,error):
     if ftype_guess.extension not in ALLOWED_EXTENSIONS:
         error += "Tipo de archivo no valido\n"
         return False,error
+    
     # check mimetype
     if ftype_guess.mime not in ALLOWED_MIMETYPES:
         error += "Tipo de archivo no valido\n"

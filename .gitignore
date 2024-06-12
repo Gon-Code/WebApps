@@ -1,8 +1,10 @@
 # Carpeta ignoradas
 
 .vscode/
-Tarea 2/utils/__pycache__/
-Tarea 2/test/__pycache__/
+/Tareas/Tarea 2/test/__pycache__
+/Tareas/Tarea 2/static/preupload
+/Tareas/Tarea 2/static/upload
+/Tareas/Tarea 2/utils/__pycache__
 
 
 # Compiled source #

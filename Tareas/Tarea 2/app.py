@@ -1,13 +1,27 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-
 import pymysql
 import os
 import ast
+import hashlib
+import shutil
+from werkzeug.utils import secure_filename
 from utils.getters import get_producto, get_regiones, get_comunas, get_comuna_id, get_fruta_verdura_id
 from utils.validation import validate, validate_conf_img
+from utils.save_upload import save_uploads
+
+current_dir = os.path.dirname(os.path.abspath(__file__))  # Directorio del script Python actual
+source_dir = os.path.abspath(os.path.join(current_dir, 'static', 'preupload')) # Directorio de preuploads
+destination_dir = os.path.abspath(os.path.join(current_dir, 'static', 'upload')) # Directorio de uploads
+
+UPLOAD_FOLDER = 'static/uploads'
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Añade una clave secreta para las sesiones de Flask
+
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGHT'] = 16 * 1024 * 1024
 
 # Conexion a base de datos
 conn = pymysql.connect(
@@ -18,6 +32,10 @@ conn = pymysql.connect(
     charset='utf8'
 )
 c = conn.cursor()
+
+@app.errorhandler(413)
+def request_entity_too_large(error):
+    return "File exceeds the maximun file size allowed",413
 
 @app.route('/')
 def index():
@@ -50,31 +68,30 @@ def agregar_producto():
         for i in range(1, 4):
             file = request.files.get(f'myfile{i}')
             print(type(file))
-            print(file)
+            print(file.filename)
             if file and file.filename != '':
-                # Lee el archivo en binario
-                file_data = file.read()
-                fotos.append(file_data)
+                fotos.append(file)
             else:
                 fotos.append(None)
         
-        #for foto in fotos :
-        #    result = validate_conf_img(foto)
-        #    print(result)
-            
         # Datos para validar
         input_data = (name, productos_seleccionados,fotos, telefono, email)
         validation_result = validate(input_data)
 
         # Retorna True si son validos
         if validation_result is True:
+            # Guarda las fotos porque al recargar la pagina se pierde la informacion del usuario, las fotos no se pueden recargar
+            uploads = save_uploads(fotos)
             confirm_message = "Confirma el envío del formulario"
+            # Guardar las fotos aqui
+            
             return render_template('agregar-producto.html', 
                                    productos=productos, 
                                    regiones=regiones, 
                                    comunas_por_region=comunas_por_region, 
                                    confirm_message=confirm_message,
                                    error_message='',
+                                   uploads=uploads,
                                    productos_seleccionados=productos_seleccionados,
                                    form_data=request.form)
             
@@ -93,17 +110,19 @@ def agregar_producto():
                            comunas_por_region=comunas_por_region,
                            error_message='',
                            productos_seleccionados=[],
-                           form_data =request.form)
+                           form_data = request.form)
 
 
 # Esta funcion va a enviar los archivos a la base de datos
-@app.route('/',methods=['POST'])
+@app.route('/',methods=['POST','GET'])
 def submittingform():
-    
+
     #Primero obtenemos los datos del formulario
     form = request.form
+    
     tipo = form['tipo']
     productos = ast.literal_eval(form['producto_selector']) # Viene como str asi que lo formateamos a una lista
+    uploads = ast.literal_eval(form['uploads']) # Viene como str asi que lo formateamos a una lista
     descripcion = form['descripcion']
     region = form['region_selector']
     comuna = form['comunas']
@@ -111,21 +130,6 @@ def submittingform():
     email = form['email']
     telefono = form['phone']
     
-    '''
-    # Manejar archivos subidos
-    fotos = [] # Almacena los archivos
-    for i in range(1, 4):
-        file = request.files.get(f'myfile{i}')
-        if file and file.filename != '':
-            # Obtener el nombre del archivo
-            filename = secure_filename(file.filename)
-            # Guardar el archivo en la carpeta 'img'
-            file_path = os.path.join(app.config['img/small'], filename)
-            file.save(file_path) # Guarda las fotos
-            fotos.append(file_path) # Lista con las rutas de las fotos
-        else:
-            fotos.append(None) 
-    '''
     print(tipo)
     print(productos)
     print(descripcion)
@@ -169,6 +173,46 @@ def submittingform():
     print("Todos los productos fueron insertados")
     
     # INSERTAR EN LA TABLA FOTO
+    print("ESTAMOS MOVIENDO ARCHIVOS ")
+    
+    for file in uploads:
+        print(file)
+        # Ruta de la imagen + nombre del archivo
+        source_file_path = os.path.join(source_dir,file)
+        # Ruta de de destino de la imagen + nombre del archivo
+        destination_file_path = os.path.join(destination_dir, file)
+        
+        # Chequeamos si existe el archivo con el nombre de la lista
+        if os.path.exists(source_file_path):
+            # Mueve el archivo
+            shutil.move(source_file_path,destination_file_path)
+
+        # Añadimos a la base de datos
+        sql_foto = "INSERT INTO foto (ruta_archivo, nombre_archivo, producto_id) VALUES (%s,%s,%s)"
+        path = os.path.join(app.config['UPLOAD_FOLDER'],file)
+        c.execute(sql_foto,(path,file,producto_id))
+        conn.commit()
+        
+    print("ESTAMOS ELIMINANDO ARCHIVOS")
+    # Borramos todos los archivos, pues ya movimos los importantes
+    for file in os.listdir(source_dir):
+        # Ruta del archivo actual del directorio
+        file_path = os.path.join(source_dir,file)
+        # Si existe el archivo, lo elimina
+        os.remove(file_path)
+        
+
+
+    
+    
+    
+    '''
+        # Añadimos a la base de datos
+        sql_foto = "INSERT INTO foto (ruta_archivo, nombre_archivo, producto_id) VALUES (%s,%s,%s)"
+        c.execute(sql_foto,(app.config['UPLOAD_FOLDER'],img_filename,producto_id))
+        conn.commit()
+        print(result)   
+    '''
     
     return render_template('index.html')     
             

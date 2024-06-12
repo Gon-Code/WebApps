@@ -61,6 +61,8 @@
     </div>
 </form>
 
+
+
 <!-- Modal de confirmación -->
 <div id="confirmModal" class="modal" style="display: {% if confirm_message %} block {% else %} none {% endif %}">
     <div class="modal-content">
@@ -87,12 +89,13 @@
 <div id="confirmationMessageModal" class="modal" style="display: none;">
     <div class="modal-content">
         <p>Hemos recibido el registro de producto. Muchas Gracias</p>
-        <form action="{{ url_for('submittingform') }}" method="POST">
+        <form action="{{ url_for('submittingform') }}"  enctype="multipart/form-data" method="POST">
             <input name="tipo" value="{{ request.form.get('tipo') }}">
             <input name="producto_selector" value= "{{ productos_seleccionados }}" >
             <input name="descripcion" value="{{ request.form.get('descripcion', '') }}">
             <input name="region_selector" value="{{ request.form.get('region_selector') }}">
             <input name="comunas" value="{{ request.form.get('comunas') }}">
+            <input name="uploads" value="{{ uploads }}"></input>
             <input name="name" value="{{ request.form.get('name', '') }}">
             <input name="email" value="{{ request.form.get('email', '') }}">
             <input name="phone" value="{{ request.form.get('phone', '') }}">
