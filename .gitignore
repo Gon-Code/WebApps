@@ -1,5 +1,7 @@
 # Carpeta ignoradas
 
+/Tareas/Tarea 1/.vscode
+/Tareas/Tarea 2/.vscode
 .vscode/
 /Tareas/Tarea 2/test/__pycache__
 /Tareas/Tarea 2/static/preupload
@@ -50,3 +52,7 @@ ehthumbs.db
 Thumbs.db
 Tareas/Tarea 2/utils/__pycache__/validation.cpython-311.pyc
 /Tareas/Tarea 2/utils/__pycache__
+Tareas/Tarea 2/utils/__pycache__/getters.cpython-311.pyc
+/Tareas/Tarea 2/utils/__pycache__
+/Tareas/Tarea 2/utils/__pycache__
+*.pyc

@@ -10,12 +10,14 @@
         <link rel="stylesheet" href="{{ url_for('static',filename='css/table.css') }}">
     </head>
 <body>
-    <ul>
-        <li><a href="{{ url_for('agregar_producto')}}">Agregar Producto</a></li>
-        <li><a href="{{ url_for('ver_productos')}}">Ver Producto</a></li>
+    <ul class="nav-bar">
+        <li><a href="{{ url_for('index') }}">Página Inicial</a></li>
+        <li><a href="{{ url_for('agregar_producto') }}">Agregar Producto</a></li>
+        <li><a href="{{ url_for('ver_productos', newPage=1) }}">Ver Producto</a></li>
         <li><a href="agregar-pedido.html">Agregar Pedido</a></li>
         <li><a href="ver-pedidos.html">Ver Pedido</a></li>
     </ul>
+    
     {% block content %}
     {% endblock %}
 

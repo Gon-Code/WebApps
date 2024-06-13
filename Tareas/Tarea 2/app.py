@@ -206,10 +206,24 @@ def submittingform():
     return render_template('index.html')     
 
 
-@app.route('/ver-productos')
-def ver_productos():
+@app.route('/ver_productos/<int:newPage>',methods=['GET'])
+def ver_productos(newPage):
+    # Seteamos los limites de los elementos de acuerdo al numero de la pagina
+    limit_inf = ( newPage - 1 ) * 5
+    limit_sup = newPage * 5
     # Cada vez que se llama a esta funcion tenemos que pedir 5 productos para mostrar en pantalla
-    productos = get_last_products(0,5) # Esta es una tupla con las 5 ultimas filas de la tabla producto
+    productos = get_last_products(limit_inf,limit_sup) # Esta es una tupla con las 5 ultimas filas de la tabla producto
+    productos_length = len(productos)
+    # Precalculamos la siguiente lista de productos, si la lista esta vacia entonces le avisamos al template 
+    # De esta manera no habra boton de siguiente pagina
+    ThisIsTheLastPage = False
+    productos_2 = get_last_products(limit_inf+5,limit_sup+5)
+    if productos_2 == ():
+        print("La siguiente pagina estara vacia")
+        ThisIsTheLastPage = True
+    
+    print(f"LISTA DE PRODUCTOS DE LA SIGUIENTE PAGINA : {productos_2}\n")
+    print(f"LISTA DE PRODUCTOS : {productos}")
     lista_productos = []
     comunas = []
     regiones = []
@@ -238,29 +252,30 @@ def ver_productos():
         medium.append('medium/'+route)
         large.append('large/'+route)
 
-    return render_template('ver-productos.html',productos=productos,lista_productos=lista_productos,comunas=comunas,regiones=regiones,uploads=uploads,
-                           small=small,medium=medium,large=large)
 
-    
+    return render_template('ver-productos.html',productos=productos,lista_productos=lista_productos,comunas=comunas,regiones=regiones,uploads=uploads,
+                           small=small,medium=medium,large=large,newPage=newPage,ThisIsTheLastPage=ThisIsTheLastPage,productos_length=productos_length)
+
+
+# Esta funcion es llamada cuando se clikea una fila relacionada a un producto
+# Despliega la informacion completa del producto
 @app.route('/detalle_producto/<int:producto_id>')
 def detalle_producto(producto_id):
     
     # Obtener datos del producto
-    sql = "SELECT %s, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto"
+    sql = "SELECT id, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto WHERE id=%s"
     c.execute(sql,(producto_id,))
     producto = c.fetchone()
-    print(producto)
     
     lista_productos = get_productos(producto_id)
-    print(lista_productos)
-    print(producto[3])
     comuna, region = get_comuna_region(producto[3])
     
     # Obtenemos su foto
     filename = get_files(producto_id)[0]
     path = 'medium/'+filename
-    return render_template('informacion-producto.html', producto_id=producto_id,producto=producto,lista_productos=lista_productos,comuna=comuna,region=region,path=path)
+    path_large = 'large/'+filename
+    return render_template('informacion-producto.html', producto_id=producto_id,producto=producto,lista_productos=lista_productos,comuna=comuna,region=region,path=path,path_large=path_large)
 
-     
+
 if __name__ == '__main__':
     app.run(debug=True)

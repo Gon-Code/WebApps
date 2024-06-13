@@ -2,13 +2,14 @@
 
 {% block title %}Ver Productos{% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/button.css') }}">
+{% endblock %}
+
 {% block content %} 
 
-<script>
-  function redirigir(productoId) {
-      window.location.href = "/detalle_producto/" + productoId;
-  }
-</script>
+
 <body>
   <table>
         <!-- Filas tr-->
@@ -19,42 +20,42 @@
           <th>Comuna</th>
           <th>Fotos</th>
         </tr>
-        <tr onclick="redirigir({{ productos[0][0] }})">
-          <td> {{ productos[0][1] }} </td>
-          <td> {{ ', '.join(lista_productos[0]) }}</td>
-          <td> {{ regiones[0] }}</td>
-          <td> {{ comunas[0]}}</td>
-          <td><img src="{{ url_for('static', filename= small[0] ) }}" alt="Foto Arandanos"></td>
-        </tr>
-        <tr onclick="redirigir({{ productos[1][0] }})">
-          <td> {{ productos[1][1] }} </td>
-          <td> {{ ', '.join(lista_productos[1]) }}</td>
-          <td> {{ regiones[1]}}</td>
-          <td> {{ comunas[1] }}</td>
-          <td><img src="{{ url_for('static', filename= small[1] ) }}" alt="Foto Arandanos"></td>
-        </tr>
-        <tr onclick="redirigir({{ productos[2][0] }})">
-          <td> {{ productos[2][1] }} </td>
-          <td> {{ ', '.join(lista_productos[2])}}</td>
-          <td> {{ regiones[2]}}</td>
-          <td> {{ comunas[2]}}</td>
-          <td><img src="{{ url_for('static', filename= small[2] ) }}" alt="foto brocoli"></td>
-        </tr>
-        <tr onclick="redirigir({{ productos[3][0] }})">
-            <td> {{ productos[3][1] }} </td>
-            <td> {{ ', '.join(lista_productos[3])}}</td>
-            <td> {{ regiones[3]}}</td>
-            <td> {{ comunas[3]}}</td>
-            <td><img src="{{ url_for('static', filename= small[3] ) }}" alt="foto palta"></td>
-        </tr>
-        <tr onclick="redirigir({{ productos[4][0] }})">
-            <td> {{ productos[4][1] }} </td>
-            <td> {{ ', '.join(lista_productos[4]) }}</td>
-            <td> {{ regiones[4] }}</td>
-            <td> {{ comunas[4]}}</td>
-            <td><img src="{{ url_for('static', filename= small[4] ) }}" alt="foto papaya"></td>
-        </tr>
-      </table>
+        {% for i in range(0, productos_length) %}   
+          <tr onclick="redirigir({{ productos[i][0] }})">
+            <td> {{ productos[i][1] }} </td>
+            <td> {{ ', '.join(lista_productos[i]) }}</td>
+            <td> {{ regiones[i] }}</td>
+            <td> {{ comunas[i]}}</td>
+            <td><img src="{{ url_for('static', filename= small[i] ) }}" alt="Foto Arandanos"></td>
+          </tr>
+        {% endfor%}
+        </table>        
+        </body>
+<div>      
+  <div class="navigation-buttons">
 
-</body>
+    {% if newPage == 1 %}
+      {% set lastPage = 1 %}
+    {% else %}
+      {% set lastPage = newPage - 1 %}
+    {% endif %}
+
+    <form id="form_previous_page" action="{{ url_for('ver_productos', newPage=lastPage)}}" method="GET">
+        <button type="submit" class="button-left">Página Anterior</button>
+    </form>
+    <form id="form_next_page" action="{{ url_for('ver_productos', newPage=newPage+1)}}" method="GET">
+        <button type="submit" class="button-right" {% if ThisIsTheLastPage %} hidden {% endif %}>Página Siguiente</button>
+    </form>
+</div>
+
+
+
+<script>
+
+  function redirigir(productoId) {
+      window.location.href = "/detalle_producto/" + productoId;
+  }
+
+</script>
+
 {% endblock content %}

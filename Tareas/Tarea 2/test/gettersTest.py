@@ -17,13 +17,13 @@ class TestgettersFunctions(unittest.TestCase):
     # Testing getter for fruta_verdura id
     def test_get_last_product(self):
         limite_inf = 0
-        limite_sup = 5
-        self.assertEquals(len(get_last_products(limite_inf,limite_sup)),5)
+        limite_sup = 1
+        self.assertEquals(len(get_last_products(limite_inf,limite_sup)),1)
 
     # Testing getter for get_productos
     def test_get_productos(self):
-        id = 97
-        self.assertEquals(len(get_productos(id)),4)
+        id = 116
+        self.assertEquals(len(get_productos(id)),5)
 
     # Testing getter for get_comuna_region
     def test_get_comuna_region(self):

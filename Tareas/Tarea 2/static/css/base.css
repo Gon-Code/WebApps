@@ -1,6 +1,5 @@
-/* Estilos para el menu de navegacion el cual es en realidad una tabla */
-
-ul {
+/* Estilos para el menú de navegación */
+.nav-bar {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -10,19 +9,40 @@ ul {
   justify-content: center;
 }
 
-li a {
+.nav-bar li {
+  display: inline;
+}
+
+.nav-bar li a {
   display: block;
   color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  font-family: Arial, sans-serif; /* Puedes cambiar la fuente si lo deseas */
+  line-height: 1.5; /* Asegura que todos los enlaces tengan la misma altura */
 }
 
-li a:hover:not(.active) {
+.nav-bar li a:hover:not(.active) {
   background-color: #111;
 }
 
-.active {
+.nav-bar .active {
   background-color: #04AA6D;
 }
 
+/* Puedes agregar efectos adicionales aquí */
+.nav-bar li a:hover {
+  transition: background-color 0.3s ease;
+  border-radius: 5px; /* Añade un ligero redondeo en las esquinas al hacer hover */
+}
+
+ul {
+  list-style-type: none; /* Quita los puntos de la lista */
+  padding: 0;
+}
+
+ul li {
+ display: inline;
+ margin-right: 20px; /* Espacio entre elementos del menú */
+}

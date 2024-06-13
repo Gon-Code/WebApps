@@ -4,6 +4,10 @@
 
 {% block content %} 
 
+{% block css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modalPhoto.css') }}">   
+{% endblock %}
+
 <body>
   <table>
         <!-- Filas tr-->
@@ -27,16 +31,35 @@
           <td> {{producto[4]}} </td>
           <td> {{producto[5]}} </td>
           <td> {{producto[6]}} </td>
-          <td> <img src="{{ url_for('static', filename= path ) }}" alt="Foto del producto"></td>
+          <td> <img src="{{ url_for('static', filename= path ) }}" alt="Foto del producto" id="producto-image" onclick="abrirModal()"></td>
         </tr>
       </table>
+  <!-- Modal -->
+  <div id="myModal" class="modal" onclick="cerrarModal()">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <img class="modal-content" id="img-modal" src="{{ url_for('static', filename=path_large ) }}" alt="Foto del producto grande">
+  </div>
+
+  <script>
+    // Función para abrir el modal con la imagen grande
+    function abrirModal() {
+        var modal = document.getElementById('myModal'); // Obtener el modal
+        modal.style.display = "block"; // Mostrar el modal
+    }
+
+    // Función para cerrar el modal
+    function cerrarModal() {
+        var modal = document.getElementById('myModal'); // Obtener el modal
+        modal.style.display = "none"; // Ocultar el modal
+    }
+
+    // Evita que el modal se cierre cuando se hace clic en la imagen dentro del modal
+    document.getElementById('img-modal').onclick = function(event) {
+        event.stopPropagation();
+    }
+  </script>
 
 </body>
 
 {% endblock content %}
 
-<script>
-    function redirigir(productoId) {
-        window.location.href = "/detalle_producto/" + productoId;
-    }
-</script>

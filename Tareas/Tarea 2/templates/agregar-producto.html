@@ -115,30 +115,30 @@
 
     // Agregar evento de clic al botón de volver al formulario
     volverBtn.addEventListener('click', function() {
-        var confirmModal = document.getElementById('confirmModal');
+        let confirmModal = document.getElementById('confirmModal');
         confirmModal.style.display = "none";
     });
 
     // Agregar evento de clic al botón de confirmar si existe
     if (confirmarBtn) {
         confirmarBtn.addEventListener('click', function() {
-            var confirmModal = document.getElementById('confirmModal');
-            var confirmationMessageModal = document.getElementById('confirmationMessageModal');
+            let confirmModal = document.getElementById('confirmModal');
+            let confirmationMessageModal = document.getElementById('confirmationMessageModal');
             confirmModal.style.display = "none";
             confirmationMessageModal.style.display = "block";
         });
     }
 
     // Cerrar modal haciendo clic en el botón "X"
-    var closeBtn = document.getElementsByClassName("close")[0];
+    let closeBtn = document.getElementsByClassName("close")[0];
     closeBtn.onclick = function() {
-        var confirmModal = document.getElementById('confirmModal');
+        let confirmModal = document.getElementById('confirmModal');
         confirmModal.style.display = "none";
     };
 
     // Cerrar modal haciendo clic fuera del modal
     window.onclick = function(event) {
-        var confirmModal = document.getElementById('confirmModal');
+        let confirmModal = document.getElementById('confirmModal');
         if (event.target == confirmModal) {
             confirmModal.style.display = "none";
         }
@@ -194,5 +194,6 @@
     });
 
     regionSelector.dispatchEvent(new Event('change'));
+    
 </script>
 {% endblock javascript %}
