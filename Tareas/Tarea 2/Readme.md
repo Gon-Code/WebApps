@@ -1,5 +1,8 @@
 # Tarea 2
 
-Este es el readme de la tarea 2
+Los principales objetivos de esta tarea es desarrollar la misma página web de la tarea 1 pero utilizando el Framework Flask junto con conectar esta página con una base de datos local utilizando MySQL.
 
-Para esta tarea se implemento la base de datos, se conecto con flask , se pueden obtener los datos desde la base de datos en el archivo getters.py y también se pueden obtener los datos que ingresa el usuario en el formulario
+La creación de la base de datos, asi como las tablas que la componen, han sido provistas aquí : [enlace](database/)
+
+Puede revisar el enunciado de la tarea aquí : [enlance](EnunciadoTarea2.pdf)
+
