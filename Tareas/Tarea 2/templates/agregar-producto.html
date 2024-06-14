@@ -14,12 +14,14 @@
         <!-- Elegir Fruta o Verdura OBLIGATORIO -->
         <label>Tipo de Producto :<br></label>
         <select id="tipo" name="tipo" required>
+            <option value="">Seleccione una opción</option>
             <option value="fruta" {% if request.form.get('tipo') == 'fruta' %}selected{% endif %}>Fruta</option>
             <option value="verdura" {% if request.form.get('tipo') == 'verdura' %}selected{% endif %}>Verdura</option>
         </select>
         <!-- Elegir los productos que va a presentar OBLIGATORIO -->
         <label>Producto :</label>
         <select multiple id="producto_selector" name="producto_selector" required>
+            <option value="">Seleccione una opción</option>
             {% for producto in productos[request.form.get('tipo', 'fruta')] %}
                 <option value="{{ producto }}" {% if producto in productos_seleccionados %}selected{% endif %}>{{ producto }}</option>
             {% endfor %}
@@ -35,6 +37,7 @@
         <!-- Seleccionar región OBLIGATORIO -->
         <label><br> Región :</label>
         <select id="region_selector" name="region_selector" required>
+            <option value="">Seleccione una opción</option>
             {% for region in regiones %}
             <option value="{{ region }}" {% if request.form.get('region_selector') == region %}selected{% endif %}>{{ region }}</option>
             {% endfor %}
@@ -42,6 +45,7 @@
         <!-- Comunas OBLIGATORIO -->
         <label>Comunas :</label>
         <select id="comunas" name="comunas" required>
+            <option value="">Seleccione una opción</option>
             {% if request.form.get('region_selector') %}
                 {% for comuna in comunas_por_region[request.form.get('region_selector')] %}
                     <option value="{{ comuna }}" {% if comuna == request.form.get('comunas') %}selected{% endif %}>{{ comuna }}</option>
@@ -95,7 +99,7 @@
             <input name="descripcion" value="{{ request.form.get('descripcion', '') }}" hidden>
             <input name="region_selector" value="{{ request.form.get('region_selector') }}" hidden>
             <input name="comunas" value="{{ request.form.get('comunas') }}" hidden>
-            <input name="uploads" value="{{ uploads }}" hidden></input>
+            <input name="uploads" value="{{ uploads }}" hidden>
             <input name="name" value="{{ request.form.get('name', '') }}" hidden>
             <input name="email" value="{{ request.form.get('email', '') }}" hidden>
             <input name="phone" value="{{ request.form.get('phone', '') }}" hidden>
