@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %}Agregar Productos{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<form id="form_add_producto" action="{{ url_for('agregar_producto') }}" method="post" enctype="multipart/form-data">
+    <div class="form-container">
+        <!-- Elegir Fruta o Verdura OBLIGATORIO -->
+        <label>Tipo de Producto :<br></label>
+        <select id="tipo" name="tipo" required>
+            <option value="">Seleccione una opción</option>
+            <option value="fruta" {% if request.form.get('tipo') == 'fruta' %}selected{% endif %}>Fruta</option>
+            <option value="verdura" {% if request.form.get('tipo') == 'verdura' %}selected{% endif %}>Verdura</option>
+        </select>
+        <!-- Elegir los productos que va a presentar OBLIGATORIO -->
+        <label>Producto :</label>
+        <select multiple id="producto_selector" name="producto_selector" required>
+            <option value="">Seleccione una opción</option>
+            {% for producto in productos[request.form.get('tipo', 'fruta')] %}
+                <option value="{{ producto }}" {% if producto in productos_seleccionados %}selected{% endif %}>{{ producto }}</option>
+            {% endfor %}
+        </select>
+        <!-- Descripción de los productos OPCIONAL -->
+        <label>Descripción : <br></label>
+        <textarea id="descripcion" name="descripcion" rows="4" cols="50">{{ request.form.get('descripcion', '') }}</textarea><br>
+        <!-- Subir archivos OBLIGATORIO -->
+        <label>Imagen del Producto : <br></label>
+        <input type="file" id="file_1" name="myfile1" required>
+        <input type="file" id="file_2" name="myfile2">
+        <input type="file" id="file_3" name="myfile3">
+        <!-- Seleccionar región OBLIGATORIO -->
+        <label><br> Región :</label>
+        <select id="region_selector" name="region_selector" required>
+            <option value="">Seleccione una opción</option>
+            {% for region in regiones %}
+            <option value="{{ region }}" {% if request.form.get('region_selector') == region %}selected{% endif %}>{{ region }}</option>
+            {% endfor %}
+        </select>
+        <!-- Comunas OBLIGATORIO -->
+        <label>Comunas :</label>
+        <select id="comunas" name="comunas" required>
+            <option value="">Seleccione una opción</option>
+            {% if request.form.get('region_selector') %}
+                {% for comuna in comunas_por_region[request.form.get('region_selector')] %}
+                    <option value="{{ comuna }}" {% if comuna == request.form.get('comunas') %}selected{% endif %}>{{ comuna }}</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+        <!-- Nombre Productor OBLIGATORIO -->
+        <label>Nombre Productor : <br></label>
+        <input type="text" id="name" name="name" size="80" value="{{ request.form.get('name', '') }}" required><br>
+        <!-- Email Contacto OBLIGATORIO -->
+        <label>Email : <br></label>
+        <input type="email" id="email" name="email" size="30" value="{{ request.form.get('email', '') }}" required><br>
+        <!-- Número Celular Productor OPCIONAL -->
+        <label>Teléfono : <br></label>
+        <input type="tel" id="phone" name="phone" size="15" value="{{ request.form.get('phone', '') }}" required><br><br>
+        <button type="submit">Agregar Producto(s)</button>
+    </div>
+</form>
+
+
+
+<!-- Modal de confirmación -->
+<div id="confirmModal" class="modal" style="display: {% if confirm_message %} block {% else %} none {% endif %}">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>{{ confirm_message }}</p>
+        <div>
+            <button id="confirmarBtn">Si, confirmo</button>
+            <button id="volverBtn">No, quiero volver al formulario</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de error -->
+<div id="errorModal" class="modal" style="display: {% if error_message %}block{% else %}none{% endif %}">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>{% for message in error_message.strip().split('\n') %}
+            {{ message }}<br>
+        {% endfor %}</p>
+    </div>
+</div>
+
+<!-- Modal de confirmación de envío -->
+<div id="confirmationMessageModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <p>Hemos recibido el registro de producto. Muchas Gracias</p>
+        <form action="{{ url_for('submittingform') }}"  enctype="multipart/form-data" method="POST">
+            <input name="tipo" value="{{ request.form.get('tipo') }}" hidden>
+            <input name="producto_selector" value= "{{ productos_seleccionados }}" hidden>
+            <input name="descripcion" value="{{ request.form.get('descripcion', '') }}" hidden>
+            <input name="region_selector" value="{{ request.form.get('region_selector') }}" hidden>
+            <input name="comunas" value="{{ request.form.get('comunas') }}" hidden>
+            <input name="uploads" value="{{ uploads }}" hidden>
+            <input name="name" value="{{ request.form.get('name', '') }}" hidden>
+            <input name="email" value="{{ request.form.get('email', '') }}" hidden>
+            <input name="phone" value="{{ request.form.get('phone', '') }}" hidden>
+            <button type="submit">Volver a la página inicial</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    // Obtener referencia al botón de volver al formulario y al botón de confirmar
+    let volverBtn = document.getElementById('volverBtn');
+    let confirmarBtn = document.getElementById('confirmarBtn');
+
+    // Agregar evento de clic al botón de volver al formulario
+    volverBtn.addEventListener('click', function() {
+        let confirmModal = document.getElementById('confirmModal');
+        confirmModal.style.display = "none";
+    });
+
+    // Agregar evento de clic al botón de confirmar si existe
+    if (confirmarBtn) {
+        confirmarBtn.addEventListener('click', function() {
+            let confirmModal = document.getElementById('confirmModal');
+            let confirmationMessageModal = document.getElementById('confirmationMessageModal');
+            confirmModal.style.display = "none";
+            confirmationMessageModal.style.display = "block";
+        });
+    }
+
+    // Cerrar modal haciendo clic en el botón "X"
+    let closeBtn = document.getElementsByClassName("close")[0];
+    closeBtn.onclick = function() {
+        let confirmModal = document.getElementById('confirmModal');
+        confirmModal.style.display = "none";
+    };
+
+    // Cerrar modal haciendo clic fuera del modal
+    window.onclick = function(event) {
+        let confirmModal = document.getElementById('confirmModal');
+        if (event.target == confirmModal) {
+            confirmModal.style.display = "none";
+        }
+    };
+    
+    // Agregar evento de clic al elemento window
+    window.addEventListener('click', function(event) {
+    // Verificar si el objetivo del clic es el modal de error
+    if (event.target == errorModal) {
+        // Si el clic es fuera del modal de error, se cierra
+        errorModal.style.display = "none";
+        }
+    });
+
+    // Script para rellenar y actualizar los productos
+    let productosPorTipo = {{ productos | tojson }};
+    let tipoSelector = document.getElementById('tipo');
+    let productoSelector = document.getElementById('producto_selector');
+
+    tipoSelector.addEventListener('change', function() {
+        let selectedTipo = tipoSelector.value;
+        productoSelector.innerHTML = '';
+
+        let productos = productosPorTipo[selectedTipo];
+
+        productos.forEach(function(producto) {
+            let option = document.createElement('option');
+            option.value = producto;
+            option.textContent = producto;
+            productoSelector.appendChild(option);
+        });
+    });
+
+    tipoSelector.dispatchEvent(new Event('change'));
+
+    // Script para rellenar y actualizar las comunas
+    let comunasPorRegion = {{ comunas_por_region | tojson }};
+    let regionSelector = document.getElementById('region_selector');
+    let comunasSelect = document.getElementById('comunas');
+
+    regionSelector.addEventListener('change', function() {
+        let selectedRegion = regionSelector.value;
+        comunasSelect.innerHTML = '';
+
+        let comunas = comunasPorRegion[selectedRegion];
+
+        comunas.forEach(function(comuna) {
+            let option = document.createElement('option');
+            option.value = comuna;
+            option.textContent = comuna;
+            comunasSelect.appendChild(option);
+        });
+    });
+
+    regionSelector.dispatchEvent(new Event('change'));
+    
+</script>
+{% endblock javascript %}
