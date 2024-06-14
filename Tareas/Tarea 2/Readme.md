@@ -4,5 +4,6 @@ Los principales objetivos de esta tarea es desarrollar la misma página web de l
 
 La creación de la base de datos, asi como las tablas que la componen, han sido provistas aquí : [enlace](database/)
 
-Puede revisar el enunciado de la tarea aquí : [enlance](EnunciadoTarea2.pdf)
+![Diagrama Base de Datos](DBDiagram.png)
 
+Puede revisar el enunciado de la tarea aquí : [enlace](EnunciadoTarea2.pdf)
