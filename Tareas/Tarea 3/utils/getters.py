@@ -24,7 +24,7 @@ def get_producto():
               }
 
     # Obtenemos las frutas y las guardamos
-    sql_frutas = "SELECT nombre FROM tipo_verdura_fruta WHERE id BETWEEN 1 AND 37"
+    sql_frutas = "SELECT nombre FROM tipo_verdura_fruta WHERE id BETWEEN 1 AND 37 ORDER BY nombre ASC"
     c.execute(sql_frutas)
     resultado_frutas = c.fetchall()
     lista_frutas = [x[0] for x in resultado_frutas]
@@ -32,7 +32,7 @@ def get_producto():
     dict["fruta"] = lista_frutas
 
     # Obtenemos las verduras y las guardamos
-    sql_verduras = "SELECT nombre FROM tipo_verdura_fruta WHERE id BETWEEN 38 AND 64"
+    sql_verduras = "SELECT nombre FROM tipo_verdura_fruta WHERE id BETWEEN 38 AND 64 ORDER BY nombre ASC"
     c.execute(sql_verduras)
     resultado_verduras = c.fetchall()
     lista_verduras = [x[0] for x in resultado_verduras]
@@ -45,7 +45,7 @@ def get_producto():
 def get_regiones():
     
     #Primero obtenemos las regiones con una query
-    sql_regiones = "SELECT nombre FROM region "
+    sql_regiones = "SELECT nombre FROM region ORDER BY id"
     c.execute(sql_regiones)
     resultado_regiones = c.fetchall()
     lista_regiones = [x[0] for x in resultado_regiones]
@@ -55,7 +55,7 @@ def get_regiones():
 def get_comunas(region):
 
     #Primero obtenemos las comunas con una query
-    sql = "SELECT nombre FROM comuna WHERE region_id = (SELECT id FROM region WHERE nombre = %s)"
+    sql = "SELECT nombre FROM comuna WHERE region_id = (SELECT id FROM region WHERE nombre = %s) ORDER BY nombre"
     c.execute(sql,(region,))
     comunas = c.fetchall()
     lista_comunas = [x[0] for x in comunas]
