@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Ver Productos{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/button.css') }}">
+{% endblock %}
+
+{% block content %} 
+
+
+
+  <table>
+        <!-- Filas tr-->
+        <tr>
+          <th>Tipo</th>
+          <th>Producto(s)</th>
+          <th>Región</th>
+          <th>Comuna</th>
+          <th>Fotos</th>
+        </tr>
+        {% for i in range(0, productos_length) %}   
+          <tr onclick="redirigir({{ productos[i][0] }})">
+            <td> {{ productos[i][1] }} </td>
+            <td> {{ ', '.join(lista_productos[i]) }}</td>
+            <td> {{ regiones[i] }}</td>
+            <td> {{ comunas[i]}}</td>
+            <td><img src="{{ url_for('static', filename= small[i] ) }}" alt="Foto Arandanos"></td>
+          </tr>
+        {% endfor%}
+  </table>        
+  <div class="navigation-buttons">
+  
+      {% if newPage == 1 %}
+        {% set lastPage = 1 %}
+      {% else %}
+        {% set lastPage = newPage - 1 %}
+      {% endif %}
+  
+      <form id="form_previous_page" action="{{ url_for('ver_productos', newPage=lastPage)}}" method="GET">
+          <button type="submit" class="button-left">Página Anterior</button>
+      </form>
+      <form id="form_next_page" action="{{ url_for('ver_productos', newPage=newPage+1)}}" method="GET">
+          <button type="submit" class="button-right" {% if ThisIsTheLastPage %} hidden {% endif %}>Página Siguiente</button>
+      </form>
+  </div>
+
+   
+
+
+
+<script>
+
+  function redirigir(productoId) {
+      window.location.href = "/detalle_producto/" + productoId;
+  }
+
+</script>
+
+{% endblock content %}
