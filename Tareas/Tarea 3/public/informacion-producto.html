@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title> Informacion Producto 117</title>
+        
+  <link rel="stylesheet" href="/static/css/modalPhoto.css">   
+
+        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="stylesheet" href="/static/css/table.css">
+    </head>
+<body>
+    <ul class="nav-bar">
+        <li><a href="/">Página Inicial</a></li>
+        <li><a href="/agregar-producto">Agregar Producto</a></li>
+        <li><a href="/ver_productos/1">Ver Producto</a></li>
+        <li><a href="/agregar-pedido">Agregar Pedido</a></li>
+        <li><a href="/ver_pedidos/1">Ver Pedido</a></li>
+        <li><a href="/stats"> Estadísticas </a></li> 
+    </ul>
+    
+     
+
+
+  <link rel="stylesheet" href="/static/css/modalPhoto.css">   
+
+
+
+  <table>
+        <!-- Filas tr-->
+        <tr>
+          <th>Tipo</th>
+          <th>Producto(s)</th>
+          <th>Descripción</th>  
+          <th>Región</th>
+          <th>Comuna</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Fotos</th>
+        </tr>
+        <tr>
+          <td> fruta </td>
+          <td> Castaña, Nuez</td>
+          <td> Frutos secos desde la mejor región de Chile</td>
+          <td> Pemuco</td>
+          <td> Región del Ñuble</td>
+          <td> Francisco </td>
+          <td> Franciscoco@gmail.com </td>
+          <td> 987654321 </td>
+          <td> <img src="/static/medium/c4504b97a0354937a8b8339472417110ba55f465135acb450cda1ab77d12f5d8.gif" alt="Foto del producto" id="producto-image" onclick="abrirModal()"></td>
+        </tr>
+      </table>
+  <!-- Modal -->
+  <div id="myModal" class="modal" onclick="cerrarModal()">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <img class="modal-content" id="img-modal" src="/static/large/c4504b97a0354937a8b8339472417110ba55f465135acb450cda1ab77d12f5d8.gif" alt="Foto del producto grande">
+  </div>
+
+  <script>
+    // Función para abrir el modal con la imagen grande
+    function abrirModal() {
+        var modal = document.getElementById('myModal'); // Obtener el modal
+        modal.style.display = "block"; // Mostrar el modal
+    }
+
+    // Función para cerrar el modal
+    function cerrarModal() {
+        var modal = document.getElementById('myModal'); // Obtener el modal
+        modal.style.display = "none"; // Ocultar el modal
+    }
+
+    // Evita que el modal se cierre cuando se hace clic en la imagen dentro del modal
+    document.getElementById('img-modal').onclick = function(event) {
+        event.stopPropagation();
+    }
+  </script>
+
+
+
+
+    
+    
+
+</body>
+</html>

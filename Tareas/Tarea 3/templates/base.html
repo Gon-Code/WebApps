@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        {% block css %}
+        {% endblock %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/table.css') }}">
+    </head>
+<body>
+    <ul class="nav-bar">
+        <li><a href="{{ url_for('index') }}">Página Inicial</a></li>
+        <li><a href="{{ url_for('agregar_producto') }}">Agregar Producto</a></li>
+        <li><a href="{{ url_for('ver_productos', newPage=1) }}">Ver Producto</a></li>
+        <li><a href="{{ url_for('agregar_pedido')}}">Agregar Pedido</a></li>
+        <li><a href="{{ url_for('ver_pedidos', newPage=1)}}">Ver Pedido</a></li>
+        <li><a href="{{ url_for('stats')}}"> Estadísticas </a></li> 
+    </ul>
+    
+    {% block content %}
+    {% endblock %}
+
+    {% block javascript %}
+    {% endblock %}
+
+</body>
+</html>
