@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Ver Productos</title>
+        
+    <link rel="stylesheet" href="/static/css/forms.css">
+    <link rel="stylesheet" href="/static/css/button.css">
+
+        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="stylesheet" href="/static/css/table.css">
+    </head>
+<body>
+    <ul class="nav-bar">
+        <li><a href="/">Página Inicial</a></li>
+        <li><a href="/agregar-producto">Agregar Producto</a></li>
+        <li><a href="/ver_productos/1">Ver Producto</a></li>
+        <li><a href="/agregar-pedido">Agregar Pedido</a></li>
+        <li><a href="/ver_pedidos/1">Ver Pedido</a></li>
+        <li><a href="/stats"> Estadísticas </a></li> 
+    </ul>
+    
+     
+
+
+
+  <table>
+        <!-- Filas tr-->
+        <tr>
+          <th>Tipo</th>
+          <th>Producto(s)</th>
+          <th>Región</th>
+          <th>Comuna</th>
+          <th>Fotos</th>
+        </tr>
+           
+          <tr onclick="redirigir(117)">
+            <td> fruta </td>
+            <td> Castaña, Nuez</td>
+            <td> Región del Ñuble</td>
+            <td> Pemuco</td>
+            <td><img src="/static/small/c4504b97a0354937a8b8339472417110ba55f465135acb450cda1ab77d12f5d8.gif" alt="Foto Arandanos"></td>
+          </tr>
+           
+          <tr onclick="redirigir(116)">
+            <td> verdura </td>
+            <td> Champiñón, Acelga, Apio, Espinaca, Perejil</td>
+            <td> Región del Ñuble</td>
+            <td> Chillan</td>
+            <td><img src="/static/small/34104243cb15f011b62c15268d0c1e98ae32fdf04c6aba9e5b96914423e93932.jpg" alt="Foto Arandanos"></td>
+          </tr>
+           
+          <tr onclick="redirigir(115)">
+            <td> fruta </td>
+            <td> Avellana, Nuez, Pistacho</td>
+            <td> Región de Tarapacá</td>
+            <td> Camiña</td>
+            <td><img src="/static/small/40335deef7ac788c48d6f19fc731156c6cd783c6c598f000dc3351f36c9d682a.png" alt="Foto Arandanos"></td>
+          </tr>
+           
+          <tr onclick="redirigir(114)">
+            <td> verdura </td>
+            <td> Acelga, Cebolla, Espárrago, Puerro</td>
+            <td> Región Aisén del General Carlos Ibáñez del Campo</td>
+            <td> Coyhaique</td>
+            <td><img src="/static/small/f54a30ab6ccfcab7bbf7aaa225c9b9413f4216b0d40e74021bf7fed33384805c.png" alt="Foto Arandanos"></td>
+          </tr>
+           
+          <tr onclick="redirigir(113)">
+            <td> fruta </td>
+            <td> Manzana, Durazno, Nectarin</td>
+            <td> Región Metropolitana de Santiago </td>
+            <td> La Cisterna</td>
+            <td><img src="/static/small/acd603ab5b393f26d41f5d0118dca463d6c347888f4f56ab5d51615bfb14b3bf.jpg" alt="Foto Arandanos"></td>
+          </tr>
+        
+  </table>        
+  <div class="navigation-buttons">
+  
+      
+        
+      
+  
+      <form id="form_previous_page" action="/ver_productos/1" method="GET">
+          <button type="submit" class="button-left">Página Anterior</button>
+      </form>
+      <form id="form_next_page" action="/ver_productos/2" method="GET">
+          <button type="submit" class="button-right" >Página Siguiente</button>
+      </form>
+  </div>
+
+   
+
+
+
+<script>
+
+  function redirigir(productoId) {
+      window.location.href = "/detalle_producto/" + productoId;
+  }
+
+</script>
+
+
+
+    
+    
+
+</body>
+</html>

@@ -40,6 +40,13 @@ class TestgettersFunctions(unittest.TestCase):
         id = 6
         self.assertEquals(len(get_productos_from_pedido(id)),3)
 
+    # Testing getter for get_Data_1
+    def test_get_data_1(self):
+        self.assertEquals(get_data_1(),3)
+
+    # Testing getter for get_Data_2
+    def test_get_data_2(self):
+        self.assertEquals(get_data_2(),3)
 
 
 

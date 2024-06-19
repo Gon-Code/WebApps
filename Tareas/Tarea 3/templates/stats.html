@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Estadísticas {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stats.css') }}">
+{% endblock %}
+
+{% block content %} 
+   
+<div id="container" class="stats-container"></div>
+<div id="container2" class="stats-container" style="margin-top: 2rem;"></div>
+
+{% endblock content %}
+
+
+{% block javascript %}
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{url_for('static', filename='js/stats.js')}}"></script>
+
+{% endblock %}

@@ -151,3 +151,32 @@ def get_productos_from_pedido(id):
         new_list.append(x[0])
 
     return new_list
+
+# Entrega la informacion necesaria para el primero grafico
+# Entrega una tabla con productos (frutas o verduras) y la cantidad de veces que estan en la base de datos
+def get_data_1():
+    
+    sql = """SELECT tvf.nombre,
+             COUNT(*) AS cantidad_productos
+             FROM pedido_verdura_fruta pvf
+             INNER JOIN tipo_verdura_fruta tvf ON  pvf.tipo_verdura_fruta_id = tvf.id 
+             GROUP BY tvf.nombre 
+             ORDER BY cantidad_productos DESC"""
+    c.execute(sql)
+    list = c.fetchall()
+    print(list)
+    return list
+
+# Entrega la informacion necesaria para el segundo grafico
+# Entrega cantidad de pedidos por comuna
+def get_data_2():
+    
+    sql = """SELECT COM.nombre, 
+             COUNT(*) AS Cantidad_pedidos 
+             FROM comuna COM  
+             INNER JOIN pedido PE ON COM.id = PE.comuna_id 
+             GROUP BY COM.nombre"""
+    c.execute(sql)
+    list = c.fetchall()
+    print(list)
+    return list

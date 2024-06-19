@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask_cors import CORS, cross_origin
 import pymysql
 import os
 import ast
@@ -20,6 +21,7 @@ UPLOAD_FOLDER = 'static/uploads'
 
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = 'your_secret_key'  # Añade una clave secreta para las sesiones de Flask
 
 
@@ -67,8 +69,6 @@ def agregar_producto():
         fotos = []
         for i in range(1, 4):
             file = request.files.get(f'myfile{i}')
-            print(type(file))
-            print(file.filename)
             if file and file.filename != '':
                 fotos.append(file)
             else:
@@ -128,16 +128,7 @@ def submittingform():
     name = form['name']
     email = form['email']
     telefono = form['phone']
-    
-    print(tipo)
-    print(productos)
-    print(descripcion)
-    print(region)
-    print(comuna)
-    print(name)
-    print(email)
-    print(telefono)
-    
+
     # QUERIES
 
     # INSERTAR EN LA TABLA PRODUCTO    
@@ -147,7 +138,7 @@ def submittingform():
     sql_producto = "INSERT INTO producto (tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor) VALUES (%s,%s,%s,%s,%s,%s)"
     c.execute(sql_producto,(tipo,descripcion,comuna_id,name,email,telefono))
     conn.commit()
-    print("PRODUCTO INSERTADO")
+
 
 
     # INSERTAR EN LA TABLA PRODUCTO_FRUTA_VERDURA
@@ -165,17 +156,11 @@ def submittingform():
         sql_fruta_verdura = "INSERT INTO producto_verdura_fruta (producto_id, tipo_verdura_fruta_id) VALUES (%s,%s)"
         c.execute(sql_fruta_verdura,(producto_id,id))
         conn.commit()
-        print("PRODUCTOS INSERTADOS")
-        print(f"LAST ID : {producto_id}")
-        print(f"ID DEL PRODUCTO : {id} Nombre del producto : {producto}")
-        
-    print("Todos los productos fueron insertados")
+
     
     # INSERTAR EN LA TABLA FOTO
-    print("ESTAMOS MOVIENDO ARCHIVOS ")
     
     for file in uploads:
-        print(file)
         # Si se enviaron menos de 3 archivos alguno sea nulo
         if file is None:
             continue
@@ -191,13 +176,11 @@ def submittingform():
         # Añadimos a la base de datos
         imagen = Image.open(destination_file_path)
         resize(imagen,file)
-        print(imagen)
         sql_foto = "INSERT INTO foto (ruta_archivo, nombre_archivo, producto_id) VALUES (%s,%s,%s)"
         path = os.path.join(app.config['UPLOAD_FOLDER'],file)
         c.execute(sql_foto,(path,file,producto_id))
         conn.commit()
         
-    print("ESTAMOS ELIMINANDO ARCHIVOS")
     # Borramos todos los archivos, pues ya movimos los importantes
     for file in os.listdir(source_dir):
         # Ruta del archivo actual del directorio
@@ -221,11 +204,9 @@ def ver_productos(newPage):
     ThisIsTheLastPage = False
     productos_2 = get_last_products(limit_inf+5,limit_sup+5)
     if productos_2 == ():
-        print("La siguiente pagina estara vacia")
         ThisIsTheLastPage = True
     
-    print(f"LISTA DE PRODUCTOS DE LA SIGUIENTE PAGINA : {productos_2}\n")
-    print(f"LISTA DE PRODUCTOS : {productos}")
+    # Listas que llenaremos
     lista_productos = []
     comunas = []
     regiones = []
@@ -246,7 +227,6 @@ def ver_productos(newPage):
         comuna,region = get_comuna_region(x[3])
         comunas.append(comuna)
         regiones.append(region)
-        print(x[0])
         # Obtenemos las rutas a las imagenes de cada envio de productor
         route = get_files(x[0])[0]
         uploads.append(route)
@@ -350,16 +330,7 @@ def submittingform_pedido():
     name = form['name']
     email = form['email']
     telefono = form['phone']
-    
-    print(tipo)
-    print(productos)
-    print(descripcion)
-    print(region)
-    print(comuna)
-    print(name)
-    print(email)
-    print(telefono)
-    
+
     # QUERIES
 
     # INSERTAR EN LA TABLA PEDIDO
@@ -369,28 +340,17 @@ def submittingform_pedido():
     
     #INSERTAR PEDIDO
     submitPedido(tipo,descripcion,comuna_id,name,email,telefono)
-    
-    print("PRODUCTO INSERTADO")
-
 
     # INSERTAR EN LA TABLA PEDIDO_FRUTA_VERDURA
     # En esta tabla insertamos la lista de productos, y necesitamos el id del pedido de la tabla producto primero
-    # Obtenemos el pedido_id
-    
+    # Obtenemos el pedido_id    
     pedido_id = get_last_id()
-    print(pedido_id)
     
     # Iteramos sobre la lista, cada producto implica una entrada en la tabla producto_fruta_verdura
     for producto in productos :   
         # Obtenemos la id de cada producto
         id = get_fruta_verdura_id(producto)
         submitPedido_Verdura_Fruta(pedido_id,id)
-        print("PRODUCTOS INSERTADOS")
-        print(f"LAST ID : {pedido_id}")
-        print(f"ID DEL PRODUCTO : {id} Nombre del producto : {producto}")
-        
-    print("Todos los productos fueron insertados")
-    
         
     return render_template('index.html')     
 
@@ -410,11 +370,8 @@ def ver_pedidos(newPage):
     ThisIsTheLastPage = False
     pedidos_2 = get_last_pedidos(limit_inf+5,limit_sup+5)
     if pedidos_2 == ():
-        print("La siguiente pagina estara vacia")
         ThisIsTheLastPage = True
     
-    print(f"LISTA DE PRODUCTOS DE LA SIGUIENTE PAGINA : {pedidos_2}\n")
-    print(f"LISTA DE PRODUCTOS : {pedidos}")
     # En estas listas se guardaran productos de cada pedido, comuna y region, respectivamente
     lista_productos = []
     comunas = []
@@ -431,7 +388,7 @@ def ver_pedidos(newPage):
         comuna,region = get_comuna_region(x[3])
         comunas.append(comuna)
         regiones.append(region)
-        print(x[0])
+
 
     return render_template('ver-pedidos.html',pedidos=pedidos,lista_productos=lista_productos,comunas=comunas,regiones=regiones,
                            newPage=newPage,ThisIsTheLastPage=ThisIsTheLastPage,pedidos_length=pedidos_length)
@@ -451,5 +408,27 @@ def detalle_pedido(pedido_id):
     return render_template('informacion-pedido.html', pedido_id=pedido_id,pedido=pedido,lista_productos=lista_productos,comuna=comuna,region=region)
 
 
+@app.route('/stats')
+def stats():
+    
+    return render_template('stats.html')
+    
+
+
+@app.route("/get-stats-data", methods=["GET"])
+@cross_origin(origin="localhost", supports_credentials=True)
+def get_stats_data():
+    
+    # Obtenemos la info para los graficos
+    products_data = get_data_1()
+    cities_data = get_data_2()
+
+    
+    return jsonify({
+        "products_data": products_data,
+        "cities_data": cities_data
+    })
+    
+ 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=8007)
