@@ -1,27 +1,23 @@
-# Carpeta ignoradas
+# Ignorar todas las carpetas .vscode en cualquier subdirectorio
+**/.vscode/
 
-/Tareas/Tarea 1/.vscode
-/Tareas/Tarea 2/.vscode
-.vscode/
-/Tareas/Tarea 2/test/__pycache__
+# Ignorar todas las carpetas __pycache__ en cualquier subdirectorio
+**/__pycache__/
+
+# Ignorar carpetas específicas en Tarea 2 y Tarea 3
 /Tareas/Tarea 2/static/preupload
 /Tareas/Tarea 2/static/small
 /Tareas/Tarea 2/static/medium
 /Tareas/Tarea 2/static/large
 /Tareas/Tarea 2/static/upload
-/Tareas/Tarea 2/static/preupload
-/Tareas/Tarea 2/utils/__pycache__
-
-/Tareas/Tarea 3/.vscode
-/Tareas/Tarea 3/test/__pycache__
 /Tareas/Tarea 3/static/preupload
 /Tareas/Tarea 3/static/small
 /Tareas/Tarea 3/static/medium
 /Tareas/Tarea 3/static/large
 /Tareas/Tarea 3/static/upload
-/Tareas/Tarea 3/static/preupload
-/Tareas/Tarea 3/utils/__pycache__
 
+# Evitar la duplicación para preupload
+/static/preupload
 
 # Compiled source #
 ###################
@@ -53,16 +49,6 @@
 
 # OS generated files #
 ######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-Tareas/Tarea 2/utils/__pycache__/validation.cpython-311.pyc
 /Tareas/Tarea 2/utils/__pycache__
-Tareas/Tarea 2/utils/__pycache__/getters.cpython-311.pyc
-/Tareas/Tarea 2/utils/__pycache__
-/Tareas/Tarea 2/utils/__pycache__
+/Tareas/Tarea 3/utils/__pycache__
 *.pyc
