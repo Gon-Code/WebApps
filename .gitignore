@@ -4,21 +4,6 @@
 # Ignorar todas las carpetas __pycache__ en cualquier subdirectorio
 **/__pycache__/
 
-# Ignorar carpetas específicas en Tarea 2 y Tarea 3
-/Tareas/Tarea 2/static/preupload
-/Tareas/Tarea 2/static/small
-/Tareas/Tarea 2/static/medium
-/Tareas/Tarea 2/static/large
-/Tareas/Tarea 2/static/upload
-/Tareas/Tarea 3/static/preupload
-/Tareas/Tarea 3/static/small
-/Tareas/Tarea 3/static/medium
-/Tareas/Tarea 3/static/large
-/Tareas/Tarea 3/static/upload
-
-# Evitar la duplicación para preupload
-/static/preupload
-
 # Compiled source #
 ###################
 *.com
