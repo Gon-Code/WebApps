@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
     // Inicializar el segundo gráfico de Highcharts para ciudades
+    Highcharts.chart("container2", {
       chart: {
         type: "pie",
       },
