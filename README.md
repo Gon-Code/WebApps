@@ -30,4 +30,6 @@ Para ejecutar las tareas, navega a la carpeta correspondiente, a continuación  
 
 - Tarea 1 : Solo contiene archivos html, css y js . Basta abrir los html en un navegador.
 - Tarea 2 : Ejecute el comando `python app.py` en el directorio raíz.
+- Tarea 3 : Ejecute el comando `python app.py` en el directorio raíz.
+- Tarea 4 : Ejecute el comando `python app.py` en el directorio flask . Luego inicialice la carpeta tarea4 como un proyecto de spring boot en Java .
 
