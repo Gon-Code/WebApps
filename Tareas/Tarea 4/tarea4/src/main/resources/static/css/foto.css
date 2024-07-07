@@ -1,0 +1,73 @@
+.item1 { grid-area: foto1; }
+.item2 { grid-area: foto2; }
+.item3 { grid-area: foto3; }
+.item4 { grid-area: foto4; }
+.item5 { grid-area: foto5; }
+.item6 { grid-area: foto6; }
+.item7 { grid-area: foto7; }
+.item8 { grid-area: foto8; }
+.item9 { grid-area: foto9; }
+.item10 { grid-area: foto10; }
+.item11 { grid-area: foto11; }
+.item12 { grid-area: foto12; }
+.item13 { grid-area: foto13; }
+.item14 { grid-area: foto14; }
+.item15 { grid-area: foto15; }
+.item16 { grid-area: foto16; }
+.item17 { grid-area: foto17; }
+.item18 { grid-area: foto18; }
+.item19 { grid-area: foto19; }
+.item20 { grid-area: foto20; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        'foto1 foto2 foto3 foto4 foto5 '
+        'foto6 foto7 foto8 foto9 foto10 '
+        'foto11 foto12 foto13 foto14 foto15 '
+        'foto16 foto17 foto18 foto19 foto20 ';
+    gap: 10px;
+    background-color: #105469;
+    padding-top: 40px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    position: relative;
+}
+
+.grid-container > div {
+    background: linear-gradient(135deg, rgba(18, 125, 95, 0.8), rgba(75, 130, 194, 0.8)); /* Fondo degradado con transparencia */
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.grid-container > div:hover {
+    transition: transform 1s ease, box-shadow 0.6s ease; /* Transición suave para la transformación y la sombra, duración ajustada */
+    transform: scale(1.2); /* Aumenta el tamaño del bloque al pasar el mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Añade una sombra más grande al pasar el mouse */
+}
+
+.number-circle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(82, 25, 215);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.product-photo {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    border: 2px solid #333; /* Borde de color */
+    border-radius: 5px; /* Redondeo de esquinas */
+}

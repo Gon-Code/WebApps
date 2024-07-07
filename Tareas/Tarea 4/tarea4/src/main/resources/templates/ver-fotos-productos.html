@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Fotos Productos</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/foto.css">
+    <link rel="stylesheet" href="/css/button.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <ul class="nav-bar">
+        <li><a href="http://127.0.0.1:8007/">Página Inicial</a></li>
+        <li><a href="http://127.0.0.1:8007/agregar-producto">Agregar Producto</a></li>
+        <li><a href="http://127.0.0.1:8007/ver_productos/1">Ver Producto</a></li>
+        <li><a href="http://127.0.0.1:8007/agregar-pedido">Agregar Pedido</a></li>
+        <li><a href="http://127.0.0.1:8007/ver_pedidos/1">Ver Pedido</a></li>
+        <li><a href="http://127.0.0.1:8007/stats">Estadísticas</a></li>
+        <li><a href="http://127.0.0.1:8080/ver-fotos-productos/1">Ver Fotos</a></li>
+    </ul>
+
+    <div class="grid-container">
+        <th:block th:each="fotoConComentarios, iterStat : ${fotosConComentarios}">
+            <div th:class="'item' + ${iterStat.count}">
+                <div class="number-circle" th:text="${fotoConComentarios.cantidadComentarios}"></div>
+                <a th:href="@{/ver-foto/} + @{${fotoConComentarios.idFoto}}"> 
+                    <img th:src="'/small/' + @{${fotoConComentarios.nombreArchivo}}" width="120" height="120" alt="Producto" class="product-photo">
+                </a>
+            </div>
+        </th:block>
+    </div>
+
+    <div class="navigation-buttons">
+        <!-- Botones para navegar entre las páginas de fotos -->
+        <!-- Página Anterior -->
+        <button th:if="${tienePaginaAnterior}" onclick="goToPreviousPage()" class="button-left">
+            Página Anterior
+        </button>
+    
+        <!-- Página Siguiente -->
+        <button th:if="${tienePaginaSiguiente}" onclick="goToNextPage()" class="button-right">
+            Página Siguiente
+        </button>
+    </div>
+
+
+<script>
+        const goToPreviousPage = () => {
+            const currentPage = [[${currentPage}]]; // Obtener el valor de currentPage desde Thymeleaf
+            if (currentPage > 1) {
+                location.href = `/ver-fotos-productos/${currentPage - 1}`;
+            }
+        };
+
+        const goToNextPage = () => {
+            const currentPage = [[${currentPage}]]; // Obtener el valor de currentPage desde Thymeleaf
+            const totalPages = [[${totalPages}]];   // Obtener el valor de totalPages desde Thymeleaf
+            if (currentPage < totalPages) {
+                location.href = `/ver-fotos-productos/${currentPage + 1}`;
+            }
+        };
+</script>
+</body>
+</html>

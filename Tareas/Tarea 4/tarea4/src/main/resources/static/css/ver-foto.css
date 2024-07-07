@@ -1,0 +1,43 @@
+.item1 { grid-area: foto; }
+.item2 { grid-area: comentarios; }
+.item3 { grid-area: formulario; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        'foto comentarios'
+        'foto comentarios'
+        'foto formulario';
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background-color: #105469;
+    padding: 20px 10px 10px 10px;
+    position: relative;
+    text-align: center;
+}
+
+.grid-container > div {
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.item1 { 
+    background: linear-gradient(135deg, rgba(18, 125, 95, 0.8), rgba(75, 130, 194, 0.8)); /* Fondo degradado con transparencia */
+    grid-area: foto; 
+}
+
+.item2 { 
+    grid-area: comentarios; 
+    max-height: 430px; /* Establecer una altura máxima para el área de comentarios */
+    /*overflow-y: scroll; /* Habilitar desplazamiento vertical */
+    padding: 10px;
+}
+
+.item3{
+    grid-area: formulario;
+    padding: 0px;
+}
+
+
+

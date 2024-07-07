@@ -30,6 +30,4 @@ Para ejecutar las tareas, navega a la carpeta correspondiente, a continuación  
 
 - Tarea 1 : Solo contiene archivos html, css y js . Basta abrir los html en un navegador.
 - Tarea 2 : Ejecute el comando `python app.py` en el directorio raíz.
-- Tarea 3 : Ejecture el comando `python app.py` en el directorio raíz.
-- Tarea 4 : Por implementar ....
 

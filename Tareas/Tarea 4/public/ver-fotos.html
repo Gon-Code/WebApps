@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Fotos Productos</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/ver-foto.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/comentarios.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <ul class="nav-bar">
+        <li><a href="http://127.0.0.1:8007/">Página Inicial</a></li>
+        <li><a href="http://127.0.0.1:8007/agregar-producto">Agregar Producto</a></li>
+        <li><a href="http://127.0.0.1:8007/ver_productos/1">Ver Producto</a></li>
+        <li><a href="http://127.0.0.1:8007/agregar-pedido">Agregar Pedido</a></li>
+        <li><a href="http://127.0.0.1:8007/ver_pedidos/1">Ver Pedido</a></li>
+        <li><a href="http://127.0.0.1:8007/stats">Estadísticas</a></li>
+        <li><a href="http://127.0.0.1:8080/ver-fotos-productos/1">Ver Fotos</a></li>
+    </ul>
+    <!-- Div que contiene la foto a la izquierda y los comentarios a la derecha -->
+    <div class="grid-container">
+        <div class="item1">
+            
+                <img src="/medium/39a609f9df13ef4c7c23ca30903ae5eab3e3a9c5cf518b55e593b4e6af936058.jpg" alt="Foto del producto">
+            
+        </div>
+        <!-- Div que contiene los comentarios -->
+        <div class="item2">
+
+            <!-- Header -->
+            <div class="header">
+                <span class="title">Comentarios</span>
+            </div>
+
+            <!-- Comment Section -->
+            <div class="body">
+                
+                    <!-- One comment block -->
+                    <div class="section">
+                        <div>
+                            <div class="comment-body">
+                                <span class="name">Don CarteR</span> <!-- Nombre del usuario -->
+                                <br>
+                                <span>Tremenda corneta estimado</span> <!-- Comentario -->
+                                <br>
+                                <div class="muted">
+                                    <span>2024-07-06T22:04:21</span> <!-- Fecha de publicación -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr> <!-- Separador entre cada comentario -->
+                
+            </div>
+        </div>
+        <div class="item3">
+            <!-- Formulario para agregar un nuevo comentario -->
+        <div class="form-container">
+            <form id="form_add_comment" action="#" method="post">
+                    <label for="nombre">Nombre:</label><br>
+                    <input type="text" id="nombre" name="nombre" minlength="3" maxlength="80" required><br>
+            
+                    <label for="comentario">Comentario:</label><br>
+                    <textarea id="comentario" name="comentario" rows="4" cols="50" minlength="3" maxlength="200" required></textarea><br>
+            
+                    <button type="button" id="btnAddComment" class="agregar-comentario">Comentar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Información de la foto DEBUGGIN 
+    <p>ID de Foto: <span th:text="${id}"></span></p>
+    <p>Producto ID de Foto: <span th:text="${productoId}"></span></p> -->
+
+
+
+
+
+<!-- Script JavaScript dentro de un bloque de Thymeleaf -->
+<script>
+    // Obtener el id desde Thymeleaf
+    let idFoto = 58;
+
+    // Función para enviar el comentario utilizando AJAX
+    document.getElementById("btnAddComment").addEventListener("click", function() {
+        let nombre = document.getElementById("nombre").value;
+        let comentario = document.getElementById("comentario").value;
+        
+        // Construir la URL para la petición AJAX
+        let url = "/ver-foto/" + idFoto + "/add-comment";
+        
+        // Petición AJAX
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Éxito: recargar la página o actualizar comentarios
+                    location.reload();
+                } else {
+                    console.error("Error al agregar comentario:", xhr.status);
+                }
+            }
+        };
+        xhr.send("nombre=" + nombre + "&comentario=" + comentario);
+    });
+</script>
+</body>
+</html>
+

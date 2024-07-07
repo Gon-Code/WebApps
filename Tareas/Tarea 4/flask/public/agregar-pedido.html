@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Agregar Pedidos</title>
+        
+    <link rel="stylesheet" href="/static/css/forms.css">
+    <link rel="stylesheet" href="/static/css/modal.css">
+
+        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="stylesheet" href="/static/css/table.css">
+    </head>
+<body>
+    <ul class="nav-bar">
+        <li><a href="/">Página Inicial</a></li>
+        <li><a href="/agregar-producto">Agregar Producto</a></li>
+        <li><a href="/ver_productos/1">Ver Producto</a></li>
+        <li><a href="/agregar-pedido">Agregar Pedido</a></li>
+        <li><a href="/ver_pedidos/1">Ver Pedido</a></li>
+        <li><a href="/stats"> Estadísticas </a></li> 
+    </ul>
+    
+    
+
+<form id="form_add_producto" action="/agregar-pedido" method="post" enctype="multipart/form-data">
+    <div class="form-container">
+
+        <!-- Elegir Fruta o Verdura OBLIGATORIO -->
+        <label>Tipo de Producto :<br></label>
+        <select id="tipo" name="tipo" required>
+            <option value="">Seleccione una opción</option>
+            <option value="fruta" >Fruta</option>
+            <option value="verdura" >Verdura</option>
+        </select>
+
+        <!-- Elegir los productos que se quieren comprar OBLIGATORIO -->
+        <label>Producto :</label>
+        <select multiple id="producto_selector" name="producto_selector" required>
+            <option value="">Seleccione una opción</option>
+            
+                <option value="Almendra" >Almendra</option>
+            
+                <option value="Arándano" >Arándano</option>
+            
+                <option value="Avellana" >Avellana</option>
+            
+                <option value="Castaña" >Castaña</option>
+            
+                <option value="Cereza" >Cereza</option>
+            
+                <option value="Chirimoya" >Chirimoya</option>
+            
+                <option value="Ciruela" >Ciruela</option>
+            
+                <option value="Coco" >Coco</option>
+            
+                <option value="Damasco" >Damasco</option>
+            
+                <option value="Dátil" >Dátil</option>
+            
+                <option value="Durazno" >Durazno</option>
+            
+                <option value="Frambuesa" >Frambuesa</option>
+            
+                <option value="Frutilla" >Frutilla</option>
+            
+                <option value="Grosella" >Grosella</option>
+            
+                <option value="Higo" >Higo</option>
+            
+                <option value="Kaki" >Kaki</option>
+            
+                <option value="Kiwi" >Kiwi</option>
+            
+                <option value="Limón" >Limón</option>
+            
+                <option value="Mandarina" >Mandarina</option>
+            
+                <option value="Mango" >Mango</option>
+            
+                <option value="Maní" >Maní</option>
+            
+                <option value="Manzana" >Manzana</option>
+            
+                <option value="Melón" >Melón</option>
+            
+                <option value="Mora" >Mora</option>
+            
+                <option value="Naranja" >Naranja</option>
+            
+                <option value="Nectarin" >Nectarin</option>
+            
+                <option value="Níspero" >Níspero</option>
+            
+                <option value="Nuez" >Nuez</option>
+            
+                <option value="Palta" >Palta</option>
+            
+                <option value="Papaya" >Papaya</option>
+            
+                <option value="Pera" >Pera</option>
+            
+                <option value="Piña" >Piña</option>
+            
+                <option value="Pistacho" >Pistacho</option>
+            
+                <option value="Plátano" >Plátano</option>
+            
+                <option value="Pomelo" >Pomelo</option>
+            
+                <option value="Sandía" >Sandía</option>
+            
+                <option value="Uva" >Uva</option>
+            
+        </select>
+
+        <!-- Descripción de los productos OPCIONAL -->
+        <label>Descripción : <br></label>
+        <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea>
+
+        <!-- Seleccionar región OBLIGATORIO -->
+        <label><br> Región :</label>
+        <select id="region_selector" name="region_selector" required>
+            <option value="">Seleccione una opción</option>
+            
+            <option value="Región de Tarapacá" >Región de Tarapacá</option>
+            
+            <option value="Región de Antofagasta" >Región de Antofagasta</option>
+            
+            <option value="Región de Atacama" >Región de Atacama</option>
+            
+            <option value="Región de Coquimbo " >Región de Coquimbo </option>
+            
+            <option value="Región de Valparaíso" >Región de Valparaíso</option>
+            
+            <option value="Región del Libertador Bernardo Ohiggins" >Región del Libertador Bernardo Ohiggins</option>
+            
+            <option value="Región del Maule" >Región del Maule</option>
+            
+            <option value="Región del Biobío" >Región del Biobío</option>
+            
+            <option value="Región de La Araucanía" >Región de La Araucanía</option>
+            
+            <option value="Región de Los Lagos" >Región de Los Lagos</option>
+            
+            <option value="Región Aisén del General Carlos Ibáñez del Campo" >Región Aisén del General Carlos Ibáñez del Campo</option>
+            
+            <option value="Región de Magallanes y la Antártica Chilena" >Región de Magallanes y la Antártica Chilena</option>
+            
+            <option value="Región Metropolitana de Santiago " >Región Metropolitana de Santiago </option>
+            
+            <option value="Región de Los Ríos" >Región de Los Ríos</option>
+            
+            <option value="Región Arica y Parinacota" >Región Arica y Parinacota</option>
+            
+            <option value="Región del Ñuble" >Región del Ñuble</option>
+            
+        </select>
+
+        <!-- Comunas OBLIGATORIO -->
+        <label>Comunas :</label>
+        <select id="comunas" name="comunas" required>
+            <option value="">Seleccione una opción</option>
+            
+        </select>
+
+        <!-- Nombre Comprador OBLIGATORIO -->
+        <label>Nombre : <br></label>
+        <input type="text" id="name" name="name" size="80" value="" required><br>
+     
+        <!-- Email Contacto Comprador OBLIGATORIO -->
+        <label>Email Contacto : <br></label>
+        <input type="email" id="email" name="email" size="30" value="" required><br>
+     
+        <!-- Número Celular Comprador OPCIONAL -->
+        <label>Teléfono Contacto : <br></label>
+        <input type="tel" id="phone" name="phone" size="15" value="" required><br><br>
+        <button type="submit">Agregar Producto(s)</button>
+    </div>
+</form>
+
+
+
+<!-- Modal de confirmación -->
+<div id="confirmModal" class="modal" style="display:  none ">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p></p>
+        <div>
+            <button id="confirmarBtn">Si, confirmo</button>
+            <button id="volverBtn">No, quiero volver al formulario</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de error -->
+<div id="errorModal" class="modal" style="display: none">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+            <br>
+        </p>
+    </div>
+</div>
+
+<!-- Modal de confirmación de envío -->
+<div id="confirmationMessageModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <p>Hemos recibido el registro de producto. Muchas Gracias</p>
+        <form action="/submittingform-pedido"  enctype="multipart/form-data" method="POST">
+            <input name="tipo" value="None" hidden>
+            <input name="producto_selector" value= "[]" hidden>
+            <input name="descripcion" value="" hidden>
+            <input name="region_selector" value="None" hidden>
+            <input name="comunas" value="None" hidden>
+            <input name="name" value="" hidden>
+            <input name="email" value="" hidden>
+            <input name="phone" value="" hidden>
+            <button type="submit">Volver a la página inicial</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+    
+<script>
+    // Obtener referencia al botón de volver al formulario y al botón de confirmar
+    let volverBtn = document.getElementById('volverBtn');
+    let confirmarBtn = document.getElementById('confirmarBtn');
+
+    // Agregar evento de clic al botón de volver al formulario
+    volverBtn.addEventListener('click', function() {
+        let confirmModal = document.getElementById('confirmModal');
+        confirmModal.style.display = "none";
+    });
+
+    // Agregar evento de clic al botón de confirmar si existe
+    if (confirmarBtn) {
+        confirmarBtn.addEventListener('click', function() {
+            let confirmModal = document.getElementById('confirmModal');
+            let confirmationMessageModal = document.getElementById('confirmationMessageModal');
+            confirmModal.style.display = "none";
+            confirmationMessageModal.style.display = "block";
+        });
+    }
+
+    // Cerrar modal haciendo clic en el botón "X"
+    let closeBtn = document.getElementsByClassName("close")[0];
+    closeBtn.onclick = function() {
+        let confirmModal = document.getElementById('confirmModal');
+        confirmModal.style.display = "none";
+    };
+
+    // Cerrar modal haciendo clic fuera del modal
+    window.onclick = function(event) {
+        let confirmModal = document.getElementById('confirmModal');
+        if (event.target == confirmModal) {
+            confirmModal.style.display = "none";
+        }
+    };
+    
+    // Agregar evento de clic al elemento window
+    window.addEventListener('click', function(event) {
+    // Verificar si el objetivo del clic es el modal de error
+    if (event.target == errorModal) {
+        // Si el clic es fuera del modal de error, se cierra
+        errorModal.style.display = "none";
+        }
+    });
+
+    // Script para rellenar y actualizar los productos
+    let productosPorTipo = {"fruta": ["Almendra", "Ar\u00e1ndano", "Avellana", "Casta\u00f1a", "Cereza", "Chirimoya", "Ciruela", "Coco", "Damasco", "D\u00e1til", "Durazno", "Frambuesa", "Frutilla", "Grosella", "Higo", "Kaki", "Kiwi", "Lim\u00f3n", "Mandarina", "Mango", "Man\u00ed", "Manzana", "Mel\u00f3n", "Mora", "Naranja", "Nectarin", "N\u00edspero", "Nuez", "Palta", "Papaya", "Pera", "Pi\u00f1a", "Pistacho", "Pl\u00e1tano", "Pomelo", "Sand\u00eda", "Uva"], "verdura": ["Acelga", "Acelga", "Ajo", "Alcachofa", "Apio", "Berenjena", "Br\u00f3coli", "Cebolla", "Champi\u00f1\u00f3n", "Coliflor", "Esp\u00e1rrago", "Espinaca", "Espinaca", "Haba", "Lechuga", "Ma\u00edz", "Papa", "Pepino", "Perejil", "Pimiento", "Puerro", "R\u00e1bano", "Remolacha", "Repollo", "Tomate", "Zanahoria", "Zapallo"]};
+    let tipoSelector = document.getElementById('tipo');
+    let productoSelector = document.getElementById('producto_selector');
+
+    tipoSelector.addEventListener('change', function() {
+        let selectedTipo = tipoSelector.value;
+        productoSelector.innerHTML = '';
+
+        let productos = productosPorTipo[selectedTipo];
+
+        productos.forEach(function(producto) {
+            let option = document.createElement('option');
+            option.value = producto;
+            option.textContent = producto;
+            productoSelector.appendChild(option);
+        });
+    });
+
+    tipoSelector.dispatchEvent(new Event('change'));
+
+    // Script para rellenar y actualizar las comunas
+    let comunasPorRegion = {"Regi\u00f3n Ais\u00e9n del General Carlos Ib\u00e1\u00f1ez del Campo": ["Aysen", "Chile Chico", "Cisnes", "Cochrane", "Coyhaique", "Guaitecas", "Lago Verde", "O\u0027Higins", "Rio Iba?ez", "Tortel"], "Regi\u00f3n Arica y Parinacota": ["Arica", "Camarones", "Gral. Lagos", "Putre"], "Regi\u00f3n Metropolitana de Santiago ": ["Alhu\u00e9", "Buin", "Calera de Tango", "Cerrillos", "Cerro Navia", "Colina", "Conchali", "Curacavi", "El Bosque", "El Monte", "Estacion Central", "Huechuraba", "Independencia", "Isla de Maipo", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Lampa", "Las Condes", "Lo Barrenechea", "Lo Espejo", "Lo Prado", "Macul", "Maip\u00fa", "Mar\u00eda Pinto", "Melipilla", "\u00d1u\u00f1oa", "Padre Hurtado", "Paine", "Pedro Aguirre Cerda", "Pe\u00f1aflor", "Pe\u00f1alol\u00e9n", "Pirque", "Providencia", "Pudahuel", "Puente Alto", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Bernardo", "San Joaqu\u00edn", "San Jos\u00e9 de Maipo", "San Miguel", "San Pedro", "San Ramon", "Santiago", "Talagante", "Tiltil", "Vitacura"], "Regi\u00f3n de Antofagasta": ["Antofagasta", "Calama", "Maria Elena", "Mejillones", "Ollague", "San Pedro Atacama", "Sierra Gorda", "Taltal", "Tocopilla"], "Regi\u00f3n de Atacama": ["Alto del Carmen", "Caldera", "Cha\u00f1aral", "Copiapo", "Diego de Almagro", "Freirina", "Huasco", "Tierra Amarilla", "Vallenar"], "Regi\u00f3n de Coquimbo ": ["Andacollo", "Combarbala", "Coquimbo", "Illapel", "La Higuera", "La Serena", "Los Vilos", "Mincha", "Monte Patria", "Ovalle", "Paihuano", "Punitaqui", "Rio Hurtado", "Salamanca", "Vicu\u00f1a"], "Regi\u00f3n de La Araucan\u00eda": ["Angol", "Carahue", "Cholchol", "Collipulli", "Cunco", "Curacautin", "Curarrehue", "Ercilla", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Lonquimay", "Los Sauces", "Lumaco", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquen", "Pucon", "Puerto Saavedra", "Puren", "Renaico", "Temuco", "Teodoro Schmidt", "Tolten", "Traiguen", "Victoria", "Vilcun", "Villarrica"], "Regi\u00f3n de Los Lagos": ["Ancud", "Calbuco", "Castro", "Chaiten", "Chonchi", "Cochamo", "Curaco de Velez", "Dalcahue", "Fresia", "Frutillar", "Futaleufu", "Hualaihue", "Llanquihue", "Los Muermos", "Maullin", "Osorno", "Palena", "Puerto Montt", "Puerto Octay", "Puerto Varas", "Puqueldon", "Purranque", "Puyehue", "Queilen", "Quellon", "Quemchi", "Quinchao", "Rio Negro", "San Juan", "San Pablo"], "Regi\u00f3n de Los R\u00edos": ["Corral", "Futrono", "La Union", "Lago Ranco", "Lanco", "Los Lagos", "Mafil", "Mariquina", "Paillaco", "Panguipulli", "Rio Bueno", "Valdivia"], "Regi\u00f3n de Magallanes y la Ant\u00e1rtica Chilena": ["Antartica", "Laguna Blanca", "Porvenir", "Primavera", "Puerto Natales", "Punta Arenas", "Rio Verde", "San Gregorio", "Timaukel", "Torres del Paine"], "Regi\u00f3n de Tarapac\u00e1": ["Alto Hospicio", "Cami\u00f1a", "Colchane", "Huara", "Iquique", "Pica", "Pozo Almonte"], "Regi\u00f3n de Valpara\u00edso": ["Algarrobo", "Cabildo", "Calle Larga", "Cartagena", "Casablanca", "Catemu", "Concon", "El Quisco", "El Tabo", "Hijuelas", "Isla de Pascua", "Juan Fernandez", "La Calera", "La Cruz", "La Ligua", "Limache", "Llay Llay", "Los Andes", "Nogales", "Olmue", "Papudo", "Pencahue", "Petorca", "Puchuncavi", "Putaendo", "Quillota", "Quilpue", "Quintero", "Rinconada", "San Antonio", "San Esteban", "San Felipe", "Santa Maria", "Santo Domingo", "Valparaiso", "Villa Alemana", "Vi\u00f1a del Mar", "Zapallar"], "Regi\u00f3n del Biob\u00edo": ["Alto Bio Bio", "Antuco", "Arauco", "Cabrero", "Ca\u00f1ete", "Chiguayante", "Concepcion", "Contulmo", "Coronel", "Curanilahue", "Florida", "Hualpen", "Hualqui", "Laja", "Lebu", "Los Alamos", "Los Angeles", "Lota", "Mulchen", "Nacimiento", "Negrete", "Penco", "Quilaco", "Quilleco", "San Pedro de la Paz", "San Rosendo", "Santa Barbara", "Santa Juana", "Talcahuano", "Tirua", "Tome", "Tucapel", "Yumbel"], "Regi\u00f3n del Libertador Bernardo Ohiggins": ["Chepica", "Chimbarongo", "Codegua", "Coinco", "Coltauco", "Do\u00f1ihue", "Graneros", "La Estrella", "Las Cabras", "Litueche", "Lolol", "Machali", "Malloa", "Marchigue", "Mostazal", "Nancagua", "Navidad", "Olivar", "Palmilla", "Paredones", "Peralillo", "Peumo", "Pichidegua", "Pichilemu", "Placilla", "Pumanque", "Quinta Tilcoco", "Rancagua", "Rengo", "Requinoa", "San Fernando", "San Vicente", "Santa Cruz"], "Regi\u00f3n del Maule": ["Cauquenes", "Chanco", "Colbun", "Constitucion", "Curepto", "Curico", "Empedrado", "Huala\u00f1e", "Licanten", "Linares", "Longavi", "Maule", "Molina", "Parral", "Pelarco", "Pelluhue", "Pencahue", "Rauco", "Retiro", "Rio Claro", "Romeral", "Sagrada Familia", "San Clemente", "San Javier", "San Rafael", "Talca", "Teno", "Vichuquen", "Villa Alegre", "Yerbas Buenas"], "Regi\u00f3n del \u00d1uble": ["Bulnes", "Chillan", "Chillan Viejo", "Cobquecura", "Coelemu", "Coihueco", "El Carmen", "Ninhue", "\u00d1iquen", "Pemuco", "Pinto", "Portezuelo", "Quillon", "Quirihue", "Ranquil", "San Carlos", "San Fabian", "San Ignacio", "San Nicolas", "Trehuaco", "Yungay"]};
+    let regionSelector = document.getElementById('region_selector');
+    let comunasSelect = document.getElementById('comunas');
+
+    regionSelector.addEventListener('change', function() {
+        let selectedRegion = regionSelector.value;
+        comunasSelect.innerHTML = '';
+
+        let comunas = comunasPorRegion[selectedRegion];
+
+        comunas.forEach(function(comuna) {
+            let option = document.createElement('option');
+            option.value = comuna;
+            option.textContent = comuna;
+            comunasSelect.appendChild(option);
+        });
+    });
+
+    regionSelector.dispatchEvent(new Event('change'));
+    
+</script>
+
+
+</body>
+</html>

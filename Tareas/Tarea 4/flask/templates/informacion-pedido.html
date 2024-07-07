@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Informacion Pedido {{ pedido_id }} {% endblock %}
+
+{% block content %} 
+
+{% block css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modalPhoto.css') }}">   
+{% endblock %}
+
+
+  <table>
+        <!-- Filas tr-->
+        <tr>
+          <th>Tipo</th>
+          <th>Producto(s)</th>
+          <th>Descripción</th>  
+          <th>Región</th>
+          <th>Comuna</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+        </tr>
+        <tr>
+          <td> {{ pedido[1] }} </td>
+          <td> {{ ', '.join(lista_productos) }}</td>
+          <td> {{ pedido[2]}}</td>
+          <td> {{ comuna }}</td>
+          <td> {{ region }}</td>
+          <td> {{pedido[4]}} </td>
+          <td> {{pedido[5]}} </td>
+          <td> {{pedido[6]}} </td>
+        </tr>
+      </table>
+
+
+
+{% endblock content %}
+
